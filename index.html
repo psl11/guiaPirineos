@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Pirineos MTB · 3—13 junio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === Variables === */
+:root {
+  --bg:         #f2f5f0;
+  --bg-soft:    #e4ece0;
+  --bg-elev:    #f8faf6;
+  --ink:        #1e2a1e;
+  --ink-soft:   #4a5e46;
+  --ink-faint:  #8aa080;
+  --gold:       #5a8a3a;
+  --gold-soft:  #7ab05a;
+  --accent:     #2d5a27;
+  --line:       rgba(40,70,30,.15);
+  --line-soft:  rgba(40,70,30,.08);
+  --shadow:     0 2px 12px rgba(20,50,15,.09), 0 1px 3px rgba(20,50,15,.06);
+  --r:          8px;
+}
+[data-theme="dark"] {
+  --bg:         #111a10;
+  --bg-soft:    #182016;
+  --bg-elev:    #1e2a1c;
+  --ink:        #ddeedd;
+  --ink-soft:   #90b888;
+  --ink-faint:  #4a6848;
+  --gold:       #7ab05a;
+  --gold-soft:  #5a8a3a;
+  --accent:     #5ab04a;
+  --line:       rgba(100,180,80,.10);
+  --line-soft:  rgba(100,180,80,.06);
+  --shadow:     0 2px 12px rgba(0,0,0,.35);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.7;
+  transition: background .3s ease, color .3s ease;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* === Layout === */
+.container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 3rem 0; }
+section + section { border-top: 1px solid var(--line-soft); }
+
+/* === Topbar === */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line-soft);
+  box-shadow: 0 2px 12px rgba(60,40,20,.06);
+}
+.topbar-inner {
+  max-width: 720px; margin: 0 auto; padding: 0 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  height: 52px;
+}
+.topbar-logo {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: 1.05rem; font-style: italic; font-weight: 600;
+  color: var(--ink); white-space: nowrap; flex-shrink: 0;
+}
+.search-wrap { position: relative; flex: 1; max-width: 260px; margin-left: auto; }
+.search-input {
+  width: 100%; padding: .35rem .75rem .35rem 2rem;
+  background: var(--bg-soft); border: 1px solid var(--line-soft);
+  border-radius: 99px; font-family: 'Lora', serif; font-size: .88rem;
+  color: var(--ink); outline: none; transition: border-color .2s;
+}
+.search-input:focus { border-color: var(--gold-soft); }
+.search-icon {
+  position: absolute; left: .65rem; top: 50%; transform: translateY(-50%);
+  color: var(--ink-faint); font-size: .85rem; pointer-events: none;
+}
+.search-results {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: 8px; box-shadow: var(--shadow);
+  z-index: 200; overflow: hidden; display: none;
+}
+.search-results.show { display: block; }
+.search-result {
+  display: block; padding: .6rem 1rem; font-size: .9rem; color: var(--ink);
+  border-bottom: 1px solid var(--line-soft); cursor: pointer;
+  text-decoration: none;
+}
+.search-result:last-child { border-bottom: none; }
+.search-result:hover { background: var(--bg-soft); }
+.search-result-meta {
+  font-size: .75rem; color: var(--ink-faint);
+  font-family: 'JetBrains Mono', monospace;
+}
+.theme-btn {
+  width: 34px; height: 34px; background: transparent;
+  border: 1px solid var(--line); border-radius: 50%;
+  color: var(--ink-soft); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .3s ease; font-size: 1rem; flex-shrink: 0;
+}
+.theme-btn:hover { color: var(--accent); border-color: var(--accent); }
+[data-theme="light"] .theme-btn .moon { display: block; }
+[data-theme="light"] .theme-btn .sun  { display: none; }
+[data-theme="dark"]  .theme-btn .moon { display: none; }
+[data-theme="dark"]  .theme-btn .sun  { display: block; }
+
+/* === Nav pills === */
+.nav-pills {
+  display: flex; gap: .35rem; padding: .5rem 1.25rem;
+  overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line-soft); background: var(--bg);
+}
+.nav-pills::-webkit-scrollbar { display: none; }
+.nav-pill {
+  flex-shrink: 0; padding: .35rem .85rem;
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: .92rem; font-style: italic;
+  color: var(--ink-soft); background: transparent;
+  border: 1px solid transparent; border-radius: 99px;
+  cursor: pointer; text-decoration: none; transition: all .2s ease;
+}
+.nav-pill:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+.nav-pill.active { background: var(--accent); color: #fbf7f0; border-color: var(--accent); }
+
+/* === Hero / portada === */
+.hero {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .75rem;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 600;
+  line-height: 1.1; color: var(--ink); margin-bottom: .65rem;
+}
+.hero-subtitle {
+  font-size: 1.05rem; color: var(--ink-soft); font-style: italic;
+  margin-bottom: 1.5rem; line-height: 1.5;
+}
+.hero-quote {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-style: italic; font-size: 1.2rem; color: var(--ink-soft);
+  border-left: 2px solid var(--gold-soft); padding-left: 1.25rem;
+  margin: 1.5rem 0; line-height: 1.5;
+}
+.hero-quote-attr {
+  display: block; font-size: .78rem; font-style: normal;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: .1em;
+  color: var(--gold); margin-top: .4rem;
+}
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .5rem .75rem;
+  margin: 1.5rem 0;
+}
+.info-row { display: flex; gap: .5rem; align-items: baseline; }
+.info-label {
+  font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--gold);
+  white-space: nowrap; flex-shrink: 0;
+}
+.info-value { font-size: .9rem; color: var(--ink-soft); }
+
+/* === Section headers === */
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .4rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 600; color: var(--ink);
+  margin-bottom: .65rem; line-height: 1.2;
+}
+.section-intro {
+  font-style: italic; color: var(--ink-soft); margin-bottom: 2rem;
+  font-size: .98rem; line-height: 1.65;
+}
+
+/* === Cards === */
+.cards-list { display: flex; flex-direction: column; gap: 2.5rem; margin-top: 2rem; }
+.card {
+  background: var(--bg-elev); border: 1px solid var(--line-soft);
+  border-radius: var(--r); padding: 1.5rem;
+  transition: box-shadow .2s ease;
+}
+@media (min-width: 640px) { .card { padding: 2rem; } }
+.card:hover { box-shadow: var(--shadow); }
+.card.highlight {
+  animation: flashcard .6s ease;
+}
+@keyframes flashcard {
+  0%   { box-shadow: 0 0 0 3px var(--accent); }
+  100% { box-shadow: none; }
+}
+
+.card-header {
+  display: flex; align-items: baseline; gap: .85rem;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;
+}
+.card-roman {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: 1.1rem; font-style: italic; color: var(--gold-soft);
+  flex-shrink: 0;
+}
+.card-title h3 {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; color: var(--ink); line-height: 1.2;
+}
+.card-subtitle {
+  font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+  color: var(--ink-faint); letter-spacing: .05em; margin-top: .2rem;
+}
+.card-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: .64rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: .2rem .55rem; border-radius: 3px; margin-left: auto;
+  white-space: nowrap; align-self: flex-start;
+}
+.badge-pueblo    { background: color-mix(in srgb, #5a7a3a 14%, transparent); color: #3a5a20; }
+.badge-naturaleza { background: color-mix(in srgb, #3a6040 14%, transparent); color: #3a6040; }
+.badge-foto      { background: color-mix(in srgb, #2c5aa0 14%, transparent); color: #2c5aa0; }
+.badge-monumento { background: color-mix(in srgb, var(--gold) 18%, transparent); color: #7a5a1a; }
+.badge-francia   { background: color-mix(in srgb, #1a4080 16%, transparent); color: #2c6ab0; border: 1px solid color-mix(in srgb, #2c6ab0 30%, transparent); }
+.badge-ruta      { background: color-mix(in srgb, #603a80 14%, transparent); color: #603a80; }
+
+/* === Card hero image === */
+.card-hero {
+  margin: 0 -1.5rem 1.5rem;
+  overflow: hidden; position: relative;
+  background: var(--bg-soft); height: 220px;
+}
+@media (min-width: 640px) {
+  .card-hero { margin: 0 -2rem 1.75rem; height: 260px; }
+}
+.card-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center; display: block;
+  filter: saturate(.95) contrast(1.02);
+}
+.card-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, transparent 70%, color-mix(in srgb, var(--bg-elev) 55%, transparent));
+}
+[data-theme="dark"] .card-hero img { filter: brightness(.8) saturate(.85); }
+
+/* === Card sections === */
+.card-section { margin-bottom: 1.5rem; }
+.card-section:last-of-type { margin-bottom: 0; }
+.card-section h4 {
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: 1rem; font-style: italic; font-weight: 600;
+  color: var(--gold); letter-spacing: .05em;
+  margin-bottom: .6rem; text-transform: uppercase; font-size: .8rem;
+}
+.card-section p { font-size: .97rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: .75rem; }
+.card-section p:last-child { margin-bottom: 0; }
+.card-section p strong { color: var(--ink); font-weight: 600; }
+.card-section p em { font-style: italic; }
+
+/* === Foto tips box === */
+.izaguirre-box {
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 5px 5px 0;
+  padding: .85rem 1.1rem;
+  margin: 1rem 0 .25rem;
+  font-size: .9rem; line-height: 1.65; color: var(--ink-soft);
+  font-style: italic;
+}
+.izaguirre-box .iz-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .63rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); font-style: normal;
+  display: block; margin-bottom: .35rem;
+}
+.izaguirre-box strong { color: var(--ink); font-weight: 600; font-style: normal; }
+
+.foto-box {
+  background: color-mix(in srgb, #2c5aa0 7%, transparent);
+  border-left: 3px solid #4a7ac0;
+  border-radius: 0 5px 5px 0;
+  padding: .85rem 1.1rem;
+  margin: .75rem 0;
+  font-size: .9rem; line-height: 1.6; color: var(--ink-soft);
+}
+.foto-box .foto-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
+  color: #4a7ac0; display: block; margin-bottom: .35rem;
+}
+.foto-box strong { color: var(--ink); font-weight: 600; }
+
+/* === Francia box === */
+.france-tag {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+  color: #2c6ab0;
+  background: color-mix(in srgb, #2c6ab0 10%, transparent);
+  border: 1px solid color-mix(in srgb, #2c6ab0 25%, transparent);
+  padding: .15rem .55rem; border-radius: 3px; margin-left: .5rem;
+  vertical-align: middle;
+}
+
+/* === Facts row === */
+.facts { margin-top: 1.25rem; }
+.facts-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: .45rem 0; border-bottom: 1px solid var(--line-soft);
+  gap: 1rem;
+}
+.facts-row:last-of-type { border-bottom: none; }
+.facts-row .label {
+  font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--gold);
+  flex-shrink: 0;
+}
+.facts-row .value { color: var(--ink); font-size: .88rem; text-align: right; }
+
+/* === Maps link === */
+.maps-link {
+  display: flex; align-items: center; justify-content: center; gap: .45rem;
+  margin-top: .85rem; padding: .55rem 1rem;
+  background: var(--bg-elev); border: 1px solid var(--line);
+  border-radius: 99px;
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-style: italic; font-size: .9rem; color: var(--accent);
+  text-decoration: none; transition: all .2s ease;
+}
+.maps-link:hover { background: var(--accent); color: var(--bg-elev); border-color: var(--accent); text-decoration: none; }
+.maps-link::before { content: "📍"; font-style: normal; }
+
+/* === Notes === */
+.notes-area { margin-top: 1.5rem; }
+.notes-area label {
+  display: block; font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .4rem;
+}
+.notes-textarea {
+  width: 100%; min-height: 70px; background: var(--bg-soft);
+  border: 1px solid var(--line-soft); border-radius: 4px;
+  padding: .6rem .75rem; color: var(--ink);
+  font-family: 'Lora', serif; font-size: .88rem; resize: vertical;
+  transition: border-color .2s;
+}
+.notes-textarea:focus { outline: none; border-color: var(--gold-soft); }
+
+/* === Back button === */
+.back-btn {
+  position: fixed; bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  background: var(--accent); color: #fbf7f0;
+  border: none; padding: .7rem 1.5rem .7rem 1.2rem;
+  border-radius: 99px;
+  font-family: 'Cormorant Garamond', 'Garamond', serif;
+  font-size: 1rem; font-style: italic;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(60,40,20,.3);
+  display: flex; align-items: center; gap: .5rem;
+  transition: transform .3s cubic-bezier(.34,1.4,.64,1), opacity .3s ease;
+  opacity: 0; pointer-events: none; z-index: 200;
+}
+.back-btn.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+.back-btn:hover { background: color-mix(in srgb, var(--accent) 85%, black); }
+.back-btn-arrow { font-size: 1.1rem; line-height: 1; }
+
+/* === Flourish === */
+.flourish {
+  text-align: center; padding: 2rem 0 1rem;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  color: var(--gold-soft); letter-spacing: .2em; font-size: 1rem;
+}
+
+/* === Gastro (stub) === */
+.gastro-intro {
+  font-family: 'Cormorant Garamond', 'Garamond', serif; font-style: italic;
+  font-size: .95rem; color: var(--ink-soft); line-height: 1.65;
+  padding: .75rem 1rem;
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 0 3px 3px 0; margin-bottom: 1rem;
+}
+
+/* === Practica === */
+.detail-list { list-style: none; padding: 0; }
+.detail-list li {
+  padding: .55rem 0 .55rem 1.5rem;
+  border-bottom: 1px solid var(--line-soft);
+  position: relative; font-size: .97rem; line-height: 1.55;
+}
+.detail-list li:last-child { border-bottom: none; }
+.detail-list li::before {
+  content: "✦"; position: absolute; left: 0;
+  color: var(--gold); font-size: .8rem; top: .8rem;
+}
+
+/* === Mobile === */
+@media (max-width: 540px) {
+  body { font-size: 16px; }
+  section { padding: 2.25rem 0; }
+  .nav-pill { font-size: .9rem; padding: .3rem .75rem; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-logo">Pirineos MTB · Jun 2026</div>
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="search" class="search-input" id="search-input" placeholder="Buscar ficha…" autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Cambiar tema">
+      <span class="moon">☾</span><span class="sun">☀</span>
+    </button>
+  </div>
+  <nav class="nav-pills" id="nav-pills">
+    <a href="#inicio"    class="nav-pill">Inicio</a>
+    <a href="#calendario" class="nav-pill">Calendario</a>
+    <a href="#cerdanya"  class="nav-pill">Cerdanya</a>
+    <a href="#pallars"   class="nav-pill">Pallars</a>
+    <a href="#aran"      class="nav-pill">Val d'Arán</a>
+    <a href="#sobrarbe"  class="nav-pill">Sobrarbe</a>
+    <a href="#rutas"     class="nav-pill">Rutas MTB</a>
+    <a href="#gastronomia" class="nav-pill">Gastronomía</a>
+    <a href="#practica"  class="nav-pill">Práctica</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- INICIO -->
+<section id="inicio">
+  <div class="container">
+    <div class="hero">
+      <div class="hero-eyebrow">3 — 13 junio 2026</div>
+      <h1 class="hero-title">Pirineos MTB</h1>
+      <p class="hero-subtitle">Cerdanya · Pallars Sobirà · Val d'Arán · Sobrarbe. Diez días, cuatro bases, eMTB y dos cámaras.</p>
+      <div class="hero-quote">
+        Les Pyrénées ne sont pas une barrière, elles sont un rendez-vous.
+        <span class="hero-quote-attr">— HENRY RUSSELL, pirineísta y escritor (1834–1909)</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-row"><span class="info-label">Ida</span><span class="info-value">3 jun · Alicante → Puigcerdà</span></div>
+        <div class="info-row"><span class="info-label">Vuelta</span><span class="info-value">13 jun · retorno a Alicante</span></div>
+        <div class="info-row"><span class="info-label">Cerdanya</span><span class="info-value">3–4 jun · 1 noche</span></div>
+        <div class="info-row"><span class="info-label">Sort / Pallars</span><span class="info-value">4–6 jun · 2 noches</span></div>
+        <div class="info-row"><span class="info-label">Vielha / Val d'Arán</span><span class="info-value">6–10 jun · 4 noches</span></div>
+        <div class="info-row"><span class="info-label">Aínsa / Sobrarbe</span><span class="info-value">10–13 jun · 3 noches</span></div>
+        <div style="grid-column:1/-1;margin-top:.5rem;padding:.7rem .85rem;background:color-mix(in srgb,var(--accent) 10%,transparent);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.85rem;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;">
+        <strong style="color:var(--accent);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.2rem">⚠ Reservas urgentes — salis en 6 días</strong>
+        <span style="font-family:'Lora',serif;font-style:italic;">· <strong style="font-style:normal">Pic du Midi</strong> — reservar online en picdumidi.com (recomendado, no obligatorio). Abren 30 mayo. <a href="https://picdumidi.com/es/entradas" target="_blank" rel="noopener" style="color:var(--accent)">→ Comprar entradas</a><br>
+        · Los demás lugares no requieren reserva previa.</span>
+      </div>
+      <div class="info-row"><span class="info-label">Pablo</span><span class="info-value">X100VI · EOS RP · RF 16/2.8 · RF 35/1.8 · RF 24-105</span></div>
+        <div class="info-row"><span class="info-label">Carlos</span><span class="info-value">R6 Mark II · EF 70-200/2.8L · Sigma 24/35/50/100</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERDANYA -->
+<!-- CALENDARIO -->
+<section id="calendario">
+  <div class="container">
+    <div class="section-eyebrow">3–13 junio 2026</div>
+    <h2 class="section-title">Calendario propuesto</h2>
+    <p class="section-intro">Once días, cuatro bases. Días de ruta alternados con días de fotografía y excursión. Los recortes en las rutas son opciones, no obligaciones — cada día se puede ajustar sobre el terreno.</p>
+
+    <div style="background:color-mix(in srgb,var(--accent) 7%,transparent);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;padding:.75rem 1rem;margin-bottom:2rem;font-family:'Lora',serif;font-style:italic;font-size:.9rem;line-height:1.6;color:var(--ink-soft);">
+      <strong style="font-style:normal;color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.3rem">Criterios</strong>
+      Máximo ~45 km de ruta cada día de pedal. Días de ruta siempre alternados con descanso o excursión. Madrugar solo cuando el lugar lo justifique sin discusión. La batería de la Levo (500 Wh) es el factor limitante en rutas largas — la Canyon (720 Wh) aguanta más, pero no tiene sentido que uno acabe sin batería solo.
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.1rem;">
+
+      <!-- DÍA 1 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mar<br>3 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Traslado · Alicante → Puigcerdà</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">~5h de conducción. Llegada a media tarde. Paseo por Puigcerdà y el lago — sin prisas, primera toma de contacto con la montaña. Cena tranquila.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚗 traslado · sin bici</div>
+        </div>
+      </div>
+
+      <!-- DÍA 2 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mié<br>4 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Llívia · Ruta Sainte-Léocadie ⭐⭐⭐ (opcional) · Traslado Sort</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: visita a Llívia (enclave español en Francia, farmacia más antigua de Europa). Si las energías acompañan, la ruta <strong>Sainte-Léocadie–Eyne–Llívia</strong> (53 km, 1.397m) sale desde aquí y es la más adecuada de todas para la Cerdanya. Si no, media mañana de fotos en el enclave y traslado a Sort después de comer (~2h).</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 53 km · 1.397m · ⭐⭐⭐ · o 🚗 traslado · Levo ~80% batería</div>
+        </div>
+      </div>
+
+      <!-- DÍA 3 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Jue<br>5 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Lago de Montcortès · Mega Tampanada ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana temprana: el lago de Montcortès en calma (15 min de Sort) — el lago espejo circular, único en los Pirineos catalanes. Vale la pena llegar antes de que haya viento. Ruta <strong>Mega Tampanada</strong> (39 km, 990m) de vuelta en la tarde o al mediodía. El desnivel moderado es la más indicada para el Pallars.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 39 km · 990m · ⭐⭐⭐ · Levo ~60% batería · Lago: no requiere madrugar, basta con salir a las 8h</div>
+        </div>
+      </div>
+
+      <!-- DÍA 4 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Vie<br>6 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Estany de Sant Maurici · Traslado Vielha</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. El lago de Sant Maurici con Els Encantats es la foto más icónica del Pirineo catalán — la luz temprana es claramente mejor, pero tampoco hace falta llegar antes del amanecer: a las 8–9h todavía está tranquilo y la luz sigue siendo buena. El acceso en coche cierra a las 10h para particulares — llegar antes. Traslado a Vielha después (1h30 por el Port de la Bonaigua).</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 foto · sin bici · 🚗 traslado · ⚠ acceso cierra 10h</div>
+        </div>
+      </div>
+
+      <!-- DÍA 5 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Sáb<br>7 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Arties · Bagergue · Artiga de Lin</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici — primer día completo en el Arán. Mañana: Arties (callejuelas de piedra, iglesia románica). Mediodía: Bagergue, el pueblo más alto del Arán, flores en los balcones. Tarde: Artiga de Lin andando (3 km llanos, 1h) hasta la cascada Uelhs deth Joèu. Cena en Unhòla en Bagergue.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 foto + excursión a pie · sin bici · 🍽 Unhòla (cena)</div>
+        </div>
+      </div>
+
+      <!-- DÍA 6 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Dom<br>8 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Ruta Saut deth Pish · Coll de Varradòs ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;"><strong>Ruta 10 oficial del Arán.</strong> 47 km, 1.260m. Circular desde Vielha/Betren — la ruta que conecta lo que visteis ayer a pie con la bici: pasáis por la cascada Saut deth Pish y bajáis por Bagergue. Es la ruta con mejor relación paisaje/dificultad de las cuatro noches en el Arán. La Levo llega bien a estos 47 km con 1.260m en modo sport.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 47 km · 1.260m · ⭐⭐⭐ · Levo ~75% batería</div>
+        </div>
+      </div>
+
+      <!-- DÍA 7 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Lun<br>9 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · Bagnères-de-Luchon · Lac d'Oô</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Cruzáis el Col du Portillon (20 min desde Vielha). Luchon: paseo por la ciudad termal belle époque. Lac d'Oô: 3,5 km andando hasta el lago glaciar con la cascada de 275m — una de las tres mejores fotos del viaje. Vuelta tranquila por el Portillon. Cena en Casa Turnay (olla aranesa).</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 excursión Francia · sin bici · 🍽 Casa Turnay (cena)</div>
+        </div>
+      </div>
+
+      <!-- DÍA 8 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mar<br>10 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Ruta Cròdos ⭐⭐⭐⭐ (recortable) · Traslado Aínsa</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">38 km, 1.452m, sube a ~2.390m. Es la ruta más alta del Arán y la más exigente para la batería — la Levo 500 Wh puede ajustar en los últimos km en eco. <strong>Versión recortada:</strong> bajar por el mismo camino al llegar al primer coll (~22 km, ~900m, ⭐⭐⭐) y tener margen para el traslado de tarde a Aínsa (~2h por la N-230). La panorámica del Arán desde las zonas altas ya compensa.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 22–38 km · 900–1.452m · ⭐⭐⭐–⭐⭐⭐⭐ · 🚗 traslado tarde · ⚠ Levo: valorar versión corta</div>
+        </div>
+      </div>
+
+      <!-- DÍA 9 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mié<br>11 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Aínsa medieval · Ruta Valle de Tena · Yosa ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: explorar el casco medieval de Aínsa — la Plaza Mayor y el castillo a una hora razonable, sin madrugar, simplemente antes de que llegue el turismo de mediodía. Tarde: ruta <strong>Enduro Valle de Tena · Yosa · Escuer</strong> desde Biescas (50 min en coche). 32 km, 1.297m, técnica pero corta. Advertencia: «enduro» implica sendero con raíces y roca; si se prefiere algo más rodado, <strong>Farrigüelo · San Felices</strong> (50 km, 1.207m, ⭐⭐⭐) sale directamente desde Aínsa.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 mañana Aínsa · 🚵 32 km · 1.297m · ⭐⭐⭐ · Levo ~55% batería</div>
+        </div>
+      </div>
+
+      <!-- DÍA 10 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Jue<br>12 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · Gavarnie · (Tourmalet opcional)</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Salida a las 8h por el Túnel de Bielsa. Gavarnie: la ruta de 7 km llanos al interior del circo (2h ida y vuelta) para ver la Grande Cascade de 422m y el muro de 1.500m de pared. Una de las mejores fotos del viaje. Si queda energía y tiempo, vuelta por el Col d'Aspin y el Tourmalet — parada foto en la estatua del Géant. Si no, Gavarnie ya es suficiente para un día.</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 excursión Francia · sin bici · ⭐ foto imprescindible</div>
+        </div>
+      </div>
+
+      <!-- DÍA 11 -->
+      <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Vie<br>13 jun</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Plaza Mayor de Aínsa · Retorno Alicante</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">La Plaza Mayor de Aínsa sin turistas vale la pena verla a primera hora — no requiere madrugar, basta con bajar antes de las 9h mientras el resto del pueblo desayuna. Fotos con la luz de mañana en la piedra medieval. Desayuno. Inicio del retorno (~5h a Alicante).</div>
+          <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 mañana Aínsa · 🚗 retorno</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Rutas en reserva -->
+    <div style="margin-top:2rem;padding:1rem 1.1rem;background:var(--bg-soft);border-radius:6px;font-size:.88rem;line-height:1.7;">
+      <strong style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--gold);display:block;margin-bottom:.4rem;">Rutas en reserva</strong>
+      <span style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);">
+        Si el viaje avanza bien y se quiere más rodadura:<br>
+        · <strong style="font-style:normal">Stravada</strong> (Sort, 56 km, 1.700m ⭐⭐⭐⭐) — en lugar de la Tampanada si se quiere un día más exigente<br>
+        · <strong style="font-style:normal">Contrabandistas recortada</strong> (Sort → Alins → Tor ida y vuelta, ~38 km, 850m ⭐⭐) — el valle de la Vallferrera sin cruzar a Andorra<br>
+        · <strong style="font-style:normal">Aínsa · Zona Cero · Mediano circular</strong> (66 km, 1.669m ⭐⭐⭐⭐) — ⚠ supera la autonomía de la Levo en modo sport; solo viable en eco completo<br>
+        · <strong style="font-style:normal">Tourmalet + Pic du Midi en bici</strong> (50 km, 2.249m ⭐⭐⭐⭐⭐) — requiere día completo en Francia y batería extra o punto de recarga en La Mongie
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<section id="cerdanya">
+  <div class="container">
+    <div class="section-eyebrow">Base 1 · 3–4 jun</div>
+    <h2 class="section-title">Cerdanya</h2>
+    <p class="section-intro">El valle más soleado de los Pirineos. Una meseta a 1.000m de altitud abierta hacia los cuatro puntos cardinales, con más horas de sol anuales que la Costa Brava. Solo tenéis una tarde y una mañana, así que poco y bien.</p>
+    <div class="cards-list">
+
+      <article class="card" id="puigcerda">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Puigcerdà</h3>
+            <div class="card-subtitle">Cerdanya · 1.202 m altitud</div>
+          </div>
+          <span class="card-badge badge-pueblo">pueblo</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Puigcerdà" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Capital comarcal de la Cerdanya. Ciudad de montaña con más actividad que los pueblos del entorno — sirve como base de servicios, pero también tiene sus propios puntos fotográficos. Lo más singular: el <strong>campanario de Santa María</strong>, único elemento superviviente de la iglesia gótica destruida en 1936. Treinta metros de piedra sola, sin iglesia alrededor. Fotogénico exactamente por eso.</p>
+          <p>El <strong>Estany de Puigcerdà</strong>, el lago artificial al borde del pueblo, refleja las montañas circundantes. No es un lago espectacular de alta montaña — es pequeño y urbano — pero tiene ese punto bucólico que lo convierte en la foto más reproducida de la comarca. Rodeado del Parque Schierbeck, con patos, barcas y vistas a los Pirineos.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100</span>
+            El campanario solo, con luz lateral al atardecer, tiene algo de Giorgio de Chirico — arquitectura descontextualizada en una plaza vacía. Busca el encuadre desde abajo con el cielo despejado de junio. También funciona el lago al amanecer con el reflejo del campanario en el agua si coinciden las condiciones.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP</span>
+            Desde el mirador junto al ayuntamiento, vista panorámica del valle de la Cerdanya y las crestas del Cadí. Con focal larga (70-200), compresión de los picos al fondo. En junio hay posibilidades de que queden nevadas las cotas más altas — si hay, mejor.
+          </div>
+          <p><strong>Mejor momento:</strong> atardecer del 3 de junio al llegar, o amanecer del 4 si madrugáis antes de la ruta. La Cerdanya tiene cielos extraordinariamente limpios en junio.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Alicante</span><span class="value">~5h · A7 + N-II + N-260</span></div>
+          <div class="facts-row"><span class="label">Campanario</span><span class="value">Visitable · entrada ~€2</span></div>
+          <div class="facts-row"><span class="label">Estany</span><span class="value">Acceso libre siempre</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Puigcerd%C3%A0+Cerdanya" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-puigcerda">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-puigcerda" data-note-key="puigcerda" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="llivia">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Llívia</h3>
+            <div class="card-subtitle">Enclave español en territorio francés · 6 km de Puigcerdà</div>
+          </div>
+          <span class="card-badge badge-pueblo">pueblo</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Llívia" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>La anomalía geopolítica más fotogénica de los Pirineos. Llívia es un municipio español de 1.500 habitantes completamente rodeado de Francia — consecuencia del Tratado de los Pirineos de 1659, que cedió las «aldeas» de la Cerdanya a Francia pero excluyó a Llívia porque entonces tenía estatus de <em>vila</em> (ciudad), no de aldea. Desde entonces vive en su burbuja: España a 6 km por una carretera neutral que atraviesa territorio francés.</p>
+          <p>En la parte alta del pueblo, los restos del castillo ofrecen vistas de 360° al llano de la Cerdanya y las crestas pirenaicas de ambos lados de la frontera. La <strong>Iglesia de Nuestra Señora de los Ángeles</strong> (s. XVII sobre base románica) preside el casco histórico con su campanario visible desde toda la comarca. Y la <strong>Farmàcia Esteva</strong>, fundada en 1594, es la farmacia más antigua de Europa en funcionamiento continuo — ahora es museo.</p>
+        <div class="izaguirre-box">
+          <span class="iz-label">📖 Pirenaica · Ander Izaguirre</span>
+          El Tratado de los Pirineos de 1659 estableció que Francia se quedaba con las <em>aldeas</em> de la Cerdanya española. Los negociadores franceses sabían que Llívia tenía estatus de <strong>vila</strong> (ciudad) desde tiempos de Julio César, no de aldea — y lo usaron como argumento para excluirla. Pero entonces quedó rodeada de territorio francés sin conexión terrestre con España. La solución fue una carretera neutral de 6 km que ni España ni Francia podían administrar. Hoy esa carretera sigue siendo técnicamente «territorio en disputa» según algunos tratadistas. Llívia es el recordatorio más visible de que las fronteras las trazan los negociadores, no la geografía.
+        </div>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — el sitio estrella para la X100</span>
+            Calles estrechas de piedra con poca gente, luz limpia de montaña en junio. El campanario desde las callejuelas del casco. La Farmàcia (interior si está abierto): estanterías de madera y botes de cerámica del s. XVII — una foto de otro tiempo. El mirador del castillo al atardecer.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP</span>
+            Desde los restos del castillo, panorámica de toda la llanura de la Cerdanya con los Pirineos a izquierda y derecha. Con 70-200 en el extremo largo: las cimas del Cadí comprimidas desde lo alto. Si queda nieve en las cotas altas, mejor contraste.
+          </div>
+          <p><strong>Mejor momento:</strong> mañana antes de que lleguen los visitantes de fin de semana. En junio la luz directa es dura al mediodía — mejor antes de las 10h o después de las 17h.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Puigcerdà</span><span class="value">6 km · 10 min</span></div>
+          <div class="facts-row"><span class="label">Farmàcia Esteva</span><span class="value">Mar–dom 10:00–13:00 / 16:00–19:00 · ~€3</span></div>
+          <div class="facts-row"><span class="label">Nota</span><span class="value">Se accede desde España por carretera neutral (N-154)</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ll%C3%ADvia+Cerdanya+Spain" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-llivia">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-llivia" data-note-key="llivia" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- PALLARS SOBIRÀ -->
+<section id="pallars">
+  <div class="container">
+    <div class="section-eyebrow">Base 2 · 4–6 jun</div>
+    <h2 class="section-title">Pallars Sobirà</h2>
+    <p class="section-intro">La comarca más salvaje del Pirineo catalán. El río Noguera Pallaresa la vertebra de norte a sur entre paredes de roca. Tejados de pizarra, kayak, cañones y la puerta al único Parque Nacional de Cataluña. Dos noches desde Sort.</p>
+    <div class="cards-list">
+
+      <article class="card" id="sant-maurici">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Estany de Sant Maurici</h3>
+            <div class="card-subtitle">Parque Nacional Aigüestortes · Espot · 1.900 m</div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Estany de Sant Maurici amb els Encantats" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>La foto más icónica del Pirineo catalán y posiblemente de todo el Pirineo español: el lago de Sant Maurici con las agujas de <strong>Els Encantats</strong> (2.748m) reflejadas en el agua. El lago está a 1.900m de altitud, a 3,5 km del pueblo de Espot por una pista que en verano se corta al tráfico privado antes de las 10h (en temporada alta). Es el punto de entrada al único Parque Nacional de Cataluña — 40.000 hectáreas con más de 200 lagos glaciares.</p>
+          <p>La leyenda de los Encantats dice que dos cazadores que salieron a cazar el día de la fiesta patronal fueron transformados en piedra por Dios como castigo. Las dos agujas de granito son inconfundibles desde cualquier punto del lago. En junio el agua aún lleva el deshielo de las nieves, el color es intenso, y los prados alrededor están en su máximo verde.</p>
+          <p>El Parque Nacional de Aigüestortes i Estany de Sant Maurici (declarado en 1955) es el único Parque Nacional de Cataluña y uno de los más antiguos de España. El nombre <em>aigüestortes</em> significa literalmente «aguas tortuosas» en catalán — hace referencia a los meandros del río San Nicolau en la zona occidental del parque. Hay más de 200 lagos en 40.000 hectáreas. La altitud mínima del parque es 1.600m; la máxima, los 2.980m del Pica d'Estats. En junio no hay restricciones de nieve pero sí puede haber tormentas eléctricas de tarde — observad el cielo y bajad antes de las 14h si hay cumulus que crecen.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — la foto estrella del Pallars</span>
+            La foto canónica requiere llegar al lago antes del amanecer (en junio sale el sol ~6:20h) para tener luz lateral y el reflejo sin viento. Posición: orilla occidental del lago, mirando este hacia los Encantats. Con focal de 50-70mm, los Encantats llenan el tercio superior y el reflejo ocupa la mitad inferior. Si hay niebla baja al amanecer, el lago queda envuelto en una atmósfera mágica — esperar. Con el 70-200 en focal larga: detalles de las agujas de roca.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — gran angular del entorno</span>
+            El lago completo con el bosque de pino negro a los lados y las montañas al fondo. La ermita de Sant Maurici (reconstruida) en el margen sur del lago es un elemento de escala interesante. Composición con el camino de tierra en primer plano.
+          </div>
+          <p><strong>Fauna:</strong> marmotas muy activas en junio en los prados alrededor del lago. Con el 70-200 de Carlos, hay opciones reales de foto de marmota sin mucho esfuerzo. También sarrios (rebecos) en las laderas altas — amanecer es el mejor momento.</p>
+          <p><strong>Clave logística:</strong> la barrera cierra para coches particulares a las 10:00h en temporada alta. Llegar a Espot antes de las 9h y subir en taxi-jeep del parque (servicio oficial) o a pie 3,5 km. En eMTB consultad con el parque si está permitido — las eMTBs tienen restricciones en zonas de Parque Nacional.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Sort</span><span class="value">~25 min · Espot a 8 km de Sort</span></div>
+          <div class="facts-row"><span class="label">Acceso</span><span class="value">Coche hasta Espot · taxi-jeep al lago (€6 ida)</span></div>
+          <div class="facts-row"><span class="label">Altitud lago</span><span class="value">1.900 m · Els Encantats 2.748 m</span></div>
+          <div class="facts-row"><span class="label">Amanecer 4 jun</span><span class="value">~6:15h (horario CEST)</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Estany+de+Sant+Maurici+Espot+Lleida" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-sant-maurici">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-sant-maurici" data-note-key="sant-maurici" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="gerri-sal">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Gerri de la Sal · Cañón de Collegats</h3>
+            <div class="card-subtitle">Noguera Pallaresa · ruta de paso Sort→Vielha</div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Gerri de la Sal y monasterio" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Gerri de la Sal es un pueblo a 20 km al sur de Sort que conserva un <strong>monasterio benedictino del s. XI</strong> sobre el río Noguera Pallaresa, con un puente románico al lado. Las salinas históricas que le dan nombre siguen siendo visibles — en la Edad Media el sal era la economía de toda la comarca. El conjunto es pequeño pero tiene una concentración de elementos fotográficos en apenas 500 metros: monasterio, puente, río, salinas.</p>
+          <p>Las salinas de Gerri no son una curiosidad turística — fueron durante siglos el motor económico de toda la comarca. La sal pirenaica era imprescindible para conservar la carne y el pescado antes de la refrigeración, y el transporte hacia Lleida y Aragón por el Noguera Pallaresa era el principal comercio del Pallars. Los arrieros hacían el trayecto con mulas cargadas de sal hacia el sur y volvían con aceite y cereales del llano. El monasterio benedictino controlaba el comercio y cobraba peaje en el puente. Eso explica su tamaño desproporcionado para un pueblo tan pequeño: la riqueza no venía de la agricultura sino del control del paso y del recurso mineral.</p>
+          <p>Justo al norte, el <strong>Cañón de Collegats</strong> es donde el Noguera Pallaresa se encaja entre paredes de roca de 300m de altura. La carretera C-13 lo atraviesa pegada a la roca — vas literalmente dentro del cañón. Hay un mirador y accesos al río. Para los que hacéis la ruta Sort→Vielha por Port de la Bonaigua, Gerri y Collegats están de paso obligatorio.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — Gerri de la Sal</span>
+            El monasterio desde el puente románico, con el río en primer plano. Luz de mañana o tarde lateral que recorra las piedras del puente. El pueblo en sí tiene calles estrechas de pizarra muy fotogénicas. Si hay niebla matutina sobre el río (frecuente en junio), el monasterio emergiendo de la niebla es una imagen excepcional.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — Cañón de Collegats</span>
+            Con focal wide (24-35mm), la pared de roca verticales desde dentro del cañón. La carretera da escala. Con el 70-200: detalles de la roca, el río encajado abajo, vegetación en las grietas. Luz dura al mediodía — si pasáis por aquí en el traslado, mejor parada rápida.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Sort</span><span class="value">20 km sur · 20 min · C-13</span></div>
+          <div class="facts-row"><span class="label">En ruta</span><span class="value">Paso obligatorio Sort → Lleida o → Aínsa</span></div>
+          <div class="facts-row"><span class="label">Monasterio</span><span class="value">Exterior siempre visible</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Gerri+de+la+Sal+monasterio+Pallars+Sobir%C3%A0" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-gerri">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-gerri" data-note-key="gerri" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="montcortes">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Lago de Montcortès</h3>
+            <div class="card-subtitle">Lago kárstico · Baix Pallars · 15 km de Sort</div>
+          </div>
+          <span class="card-badge badge-foto">spot foto</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Lago de Montcortès" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Un lago de origen kárstico casi perfecto en su circularidad, rodeado de bosques y a 15 km de Sort. Inusual en los Pirineos porque los lagos glaciares tienen formas irregulares — Montcortès tiene forma de ojo. El agua está en calma casi permanente por estar protegido del viento por los árboles circundantes. Resultado: un espejo. La reflexión del bosque y el cielo en el lago es el argumento fotográfico principal.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP · X100 — lago espejo</span>
+            La foto más pura del lugar: el lago en calma total, preferiblemente al amanecer antes de que llegue viento o visitantes. El reflejo simétrico del bosque en el agua. Con el RP wide en vertical, cielo + árbol + reflejo de árbol. Con la X100, la escena completa en 35mm equivalente. Si hay niebla sobre el agua al amanecer (muy probable en junio), es extraordinario.
+          </div>
+          <p><strong>Mejor momento:</strong> amanecer. El lago está a 15 min de Sort — salir a las 6h y estar aquí a las 6:20h para tener la luz rasante y la calma del agua antes de que llegue nadie.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Sort</span><span class="value">15 km · 15 min</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Lago kárstico — único en los Pirineos catalanes</span></div>
+          <div class="facts-row"><span class="label">Acceso</span><span class="value">Coche hasta el aparcamiento · 5 min andando</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Lago+de+Montcort%C3%A8s+Pallars+Sobir%C3%A0" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-montcortes">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-montcortes" data-note-key="montcortes" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- VAL D'ARÁN -->
+<section id="aran">
+  <div class="container">
+    <div class="section-eyebrow">Base 3 · 6–10 jun</div>
+    <h2 class="section-title">Val d'Arán</h2>
+    <p class="section-intro">El único valle de los Pirineos que vierte sus aguas al Atlántico. Cultura occitana, lengua aranesa, arquitectura de pizarra única. Cuatro noches — es la base más larga del viaje y la zona con mayor variedad fotográfica.</p>
+    <div class="izaguirre-box" style="margin:0 0 1.5rem">
+      <span class="iz-label">📖 Pirenaica · Ander Izaguirre</span>
+      <strong>Val d'Arán</strong> significa literalmente «Valle del Valle» — <em>haran</em> en euskera quiere decir valle, y los primeros topónimos de la zona eran vascos antes de que el gascón (occitano) los sustituyera. Llamar a este lugar «Val d'Arán» es como llamar a Madrid «Ciudad de la Ciudad». Lo más irónico: el río Garona nace aquí, en las laderas del Aneto, y acaba 647 km después en el Atlántico, a la altura de Burdeos. El río más importante del suroeste de Francia tiene sus primeras gotas en territorio español. Los franceses nunca lo mencionan.
+    </div>
+    <div class="cards-list">
+
+      <article class="card" id="artiga-lin">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Artiga de Lin · Cascada Uelhs deth Joèu</h3>
+            <div class="card-subtitle">Val d'Arán · Artiga de Lin</div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Cascada Uelhs deth Joeu Artiga de Lin" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Uno de los fenómenos hidrológicos más singulares de los Pirineos: las aguas del glaciar del Aneto (el pico más alto de los Pirineos, 3.404m) desaparecen subterráneamente en el <em>Forau d'Aigualluts</em> en Benasque y reaparecen 4 km después en territorio aranés, en una espectacular cascada llamada <strong>Uelhs deth Joèu</strong> — «ojos del dios de los infiernos» en aranés. La conexión entre los dos puntos fue demostrada científicamente en 1931 con tinte.</p>
+          <p>El sistema es uno de los más estudiados de la hidrología kárstica europea: científicos del Institut d'Estudis Aranesos y del CSIC han rastreado el recorrido subterráneo con tintes y trazadores desde los años 30. La conexión Aneto-Uelhs deth Joèu tardó décadas en demostrarse porque nadie creía que 4 km de roca permeable pudieran conectar dos valles a altitudes distintas y con orientaciones opuestas. Fue confirmada definitivamente en 1931 con fluoresceína — el mismo tinte verde que usan los fontaneros. El resultado: la cascada que veis aquí tiene su origen a 30 km en línea recta y 600m más arriba, en el glaciar más grande de los Pirineos.</p>
+          <p>El acceso es por el <strong>valle de Artiga de Lin</strong>, un paraje protegido por el PEIN de Cataluña: prados verdes de alta montaña, vacas pardas pirenaicas pastando, bosques de abeto con el Aneto al fondo. Una ruta circular de 3 km muy sencilla. En junio, con el deshielo, la cascada alcanza su máxima potencia y los prados están en el pico de verde del año.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — la foto principal</span>
+            La cascada desde la base, con el RP wide: la pared de agua en primer plano y el bosque de abeto cerrando el encuadre. En junio el caudal es brutal — con velocidad de obturación lenta (1/8-1/30s) para suavizar el agua, trípode o apoyo estable necesario. Con el 70-200 de Carlos: detalles del agua pulverizada con la luz de la tarde creando arcoíris.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — el valle</span>
+            La panorámica del valle de Artiga de Lin hacia el sur, con el Aneto al fondo. Las vacas pirenaicas en primer plano dan escala y atmósfera. Luz de mañana o tarde — al mediodía el sol es cenital y aplana la escena. Busca la luz lateral que da textura a los prados.
+          </div>
+          <p><strong>Acceso:</strong> en temporada alta el acceso en coche cierra de 10:00h a 17:00h — llegar antes de las 10h o después de las 17h. El parking gratuito está en la ermita, 2 km antes de la cascada.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Vielha</span><span class="value">~30 min · Valle de Barrancs</span></div>
+          <div class="facts-row"><span class="label">Ruta</span><span class="value">Circular 3 km · desnivel mínimo · 1h</span></div>
+          <div class="facts-row"><span class="label">Acceso coche</span><span class="value">Cierra 10:00–17:00h en temporada alta</span></div>
+          <div class="facts-row"><span class="label">Amanecer 7 jun</span><span class="value">~6:10h (CEST)</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Artiga+de+Lin+cascada+Uelhs+deth+Joeu+Val+d'Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-artiga">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-artiga" data-note-key="artiga" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="arties">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Arties</h3>
+            <div class="card-subtitle">Val d'Arán · 1.143 m · 10 km de Vielha</div>
+          </div>
+          <span class="card-badge badge-pueblo">pueblo</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Arties Val d'Arán" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Considerado unánimemente el pueblo más fotogénico del Arán. Casas de piedra con tejados de pizarra muy empinados, callejuelas adoquinadas, el río Garona y el Valartíes confluyendo en el pueblo. La <strong>Iglesia de Santa María</strong> (ss. XII–XVIII) combina elementos románicos y góticos en una sola construcción — campanario románico, portal gótico, interior de tres naves. Declarada Bien Cultural de Interés Nacional.</p>
+          <p>En junio los balcones de las casas están repletos de flores. La combinación de piedra gris + pizarra oscura + flores de colores es la imagen más típica del Arán. No hay muchos turistas entre semana por la mañana.</p>
+          <p>Arties es uno de los mejores sitios para escuchar el <strong>aranés</strong> — la variante occitana que hablan los 10.000 habitantes del Arán y que tiene cooficialidad junto al catalán y el castellano desde 1990. Es una de las pocas lenguas de Europa con un estatus jurídico propio dentro de una región autónoma. El aranés está más emparentado con el gascón del suroeste de Francia que con el catalán — cuando un aranés y un provenzal se encuentran, se entienden razonablemente bien. La señalización, los menús y los nombres de calle están en los tres idiomas.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — el sitio ideal para la X100</span>
+            Callejuelas estrechas con luz de mañana o tarde. Los tejados de pizarra muy inclinados crean líneas diagonales interesantes desde ángulos bajos. La iglesia desde la calle lateral, con el campanario cortando el cielo azul de junio. Las flores de los balcones con el 23mm casi tocando la fachada — compresión de colores y detalles arquitectónicos.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200</span>
+            Desde el prado al oeste del pueblo (antes de entrar desde Vielha), el pueblo entero con la iglesia y los picos detrás. El 70-200 en torno a 100-135mm comprime el pueblo contra la montaña. Si hay nubes altas, la luz difusa es perfecta para el pueblo de piedra.
+          </div>
+          <p><strong>Combo natural:</strong> Arties + Bagergue en el mismo paseo — están a 3 km por la C-28. Arties a la mañana (luz desde el este), Bagergue al mediodía o tarde (pueblo orientado al sur).</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Vielha</span><span class="value">10 km · 12 min · C-28</span></div>
+          <div class="facts-row"><span class="label">Iglesia Santa María</span><span class="value">Bien Cultural Interés Nacional · s. XII–XVIII</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Arties+Val+d'Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-arties">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-arties" data-note-key="arties" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="bagergue">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Bagergue</h3>
+            <div class="card-subtitle">Val d'Arán · 1.420 m · el pueblo más alto del Arán</div>
+          </div>
+          <span class="card-badge badge-pueblo">pueblo</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Bagergue flores balcones Val d'Arán" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>El pueblo a más altura del Arán (1.420m) y uno de los declarados «Pueblos Más Bonitos de España». Hay una ironía histórica notable: este pueblo que hoy convive con la estación de esquí de Baqueira-Beret más cara de España fue durante siglos uno de los más pobres y aislados del Pirineo. Antes de que se abriera el Túnel de Vielha en 1948 — que conectó el Arán con el resto de España por primera vez con carretera transitable todo el año — los araneses quedaban completamente incomunicados cada invierno durante meses. Los pastores bajaban a Lleida con sus rebaños antes de las primeras nieves y volvían en primavera. Esa trashumancia invernal duró siglos.</p>
+          <p>La <strong>quesería Hormatges Tarrau</strong>, en el propio pueblo, elabora el queso aranés de leche cruda de vaca. La raza pirenaica parda produce una leche más grasa que las razas de llanura — el queso resultante tiene un sabor mucho más pronunciado. Se puede comprar directamente allí, y también en la cooperativa de Bossòst.</p>
+          <p>El pueblo a más altura del Arán (1.420m) y uno de los declarados «Pueblos Más Bonitos de España». En junio los balcones están literalmente tapizados de flores — es una de las villas floridas de Cataluña. Calles empedradas con las pendientes propias de la altitud, casas de piedra oscura, vistas directas hacia el macizo de la Maladeta al sur (el más alto de los Pirineos). La quesería artesanal Hormatges Tarrau hace el queso aranés tradicional de leche de vaca — se puede visitar.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — flores y piedra</span>
+            Los balcones en junio son explosivos: rojos, rosas, naranjas contra la piedra gris-oscura. La X100 en modo apertura f/2-f/2.8, enfocando en las flores y dejando el fondo de piedra desenfocado. Busca contraluces suaves en la tarde que iluminen los pétalos desde atrás.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — la Maladeta al fondo</span>
+            Desde la parte superior del pueblo, vistas hacia el sur con el macizo de la Maladeta (Aneto, 3.404m) al fondo. En 100-200mm, las casas de Bagergue en primer plano y la nieve de la Maladeta al fondo. Mejor en la tarde con luz cálida lateral.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Vielha</span><span class="value">14 km · 18 min · C-28 hacia Baqueira</span></div>
+          <div class="facts-row"><span class="label">Altitud</span><span class="value">1.420 m — el más alto del Arán</span></div>
+          <div class="facts-row"><span class="label">Distinción</span><span class="value">Pueblo Más Bonito de España · Vila Florida</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Bagergue+Val+d'Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-bagergue">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-bagergue" data-note-key="bagergue" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="colomers">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Circ de Colomèrs</h3>
+            <div class="card-subtitle">Alta montaña · Val d'Arán · 2.000–2.400 m</div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Circ de Colomers lagos" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Un circo glaciar con más de cincuenta lagos a más de 2.000 metros de altitud. Es uno de los paisajes de alta montaña más espectaculares de los Pirineos — rocas pulidas por el hielo, agua azul eléctrico, ausencia total de vegetación arbórea por encima de 2.200m. El punto de acceso más cómodo es por la presa de Colomèrs, desde Baqueira Beret. El recorrido clásico es circular: unas 4 horas andando con tramos de roca en la parte alta.</p>
+          <p>No es apto para eMTB (hay que dejarlo al principio), pero si tenéis un día más tranquilo o de descanso de piernas, es una excursión de alto impacto fotográfico.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — paisaje de alta montaña</span>
+            Los lagos con la roca pulida reflectante. Con wide (24-35mm), el paisaje lunar de roca y agua. Con el 70-200: los reflejos en los lagos menores desde encima, detalles de la roca estriada por el glaciar. La luz de mediodía (que normalmente es mala para pueblo) aquí funciona — el azul del cielo se intensifica y la roca brilla.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100</span>
+            El contraste entre el refugio de Colomèrs (único elemento arquitectónico) y el paisaje agreste de roca y agua. Personas cruzando los Lagos en composiciones con escala. Las marmotas son muy habituales aquí — con el 70-200 de Carlos, oportunidad real.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Vielha</span><span class="value">~25 min a Baqueira · luego pista 4x4 o andando</span></div>
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">Tramo inicial y final con piedra · no apto eMTB</span></div>
+          <div class="facts-row"><span class="label">Altitud</span><span class="value">2.000–2.400 m</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Circ+de+Colomers+Val+d'Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-colomers">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-colomers" data-note-key="colomers" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="bagneres-luchon">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Bagnères-de-Luchon + Lac d'Oô</h3>
+            <div class="card-subtitle">Francia · 35 min desde Vielha por Col du Portillon <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Lac d'Oô cascada Pirineos franceses" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p><strong>Bagnères-de-Luchon</strong> es la ciudad termal más elegante de los Pirineos franceses. Arquitectura <em>belle époque</em> de finales del s. XIX, una alameda de plátanos centenarios, las Thermes, y una cultura de montaña muy arraigada — es punto de partida del GR10 (la travesía de los Pirineos de costa a costa) y referencia del ciclismo pirenaico. A 35 min de Vielha cruzando el <strong>Col du Portillon</strong> (1.293m) desde Bossòst.</p>
+          <p>El <strong>Lac d'Oô</strong> es, sin discusión, la foto francesa del viaje. Lago glaciar a 1.504m rodeado de un circo de paredes verticales cubiertas de vegetación, con una cascada de 275m precipitándose desde el Lac d'Espingo de arriba. La ruta de acceso desde les Granges d'Astau: 3,5 km y 400m de desnivel, 1h15 andando. Perfectamente accesible.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — Lac d'Oô</span>
+            El lago con la cascada de 275m al fondo, rodeado de pared vertical. Es una composición casi imposible de hacer mal. Con wide (24-35mm): el lago completo, la cascada y la pared de roca. Con el 70-200 de Carlos: solo la cascada encuadrada entre las paredes — la compresión hace que el agua parezca más grande. En junio el caudal es máximo con el deshielo.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — Luchon</span>
+            La ciudad de Luchon tiene una atmósfera de spa decimonónico que es rarísima de encontrar. La calle principal arbolada, las fachadas de las termas, los hoteles de época. Para la X100 como callejeadora: un mundo diferente al lado aragonés de los Pirineos.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 Col du Portillon — ciclismo</span>
+            Puerto de paso en la ruta. Con el 70-200 de Carlos: ciclistas subiendo el puerto con el Arán al fondo. En junio hay muchos ciclistas franceses y españoles. El collado tiene vistas a ambos valles — foto de país.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Vielha</span><span class="value">35 min · por Bossòst y Col du Portillon</span></div>
+          <div class="facts-row"><span class="label">Col du Portillon</span><span class="value">1.293 m · frontera España-Francia</span></div>
+          <div class="facts-row"><span class="label">Lac d'Oô</span><span class="value">3,5 km · 400m desnivel · 1h15 andando</span></div>
+          <div class="facts-row"><span class="label">Parking Lac d'Oô</span><span class="value">Les Granges d'Astau · €5/día</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Lac+d'O%C3%B4+Pyrénées+France" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-luchon">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-luchon" data-note-key="luchon" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOBRARBE -->
+<section id="sobrarbe">
+  <div class="container">
+    <div class="section-eyebrow">Base 4 · 10–13 jun</div>
+    <h2 class="section-title">Sobrarbe · Aínsa</h2>
+    <p class="section-intro">El Pirineo aragonés. Más árido, más dramático que el catalán. Picos más altos, valles más profundos, monumentos medievales imprescindibles. Tres noches desde Aínsa — y la frontera con Francia por el Túnel de Bielsa abre el acceso al Circo de Gavarnie y al Tourmalet.</p>
+    <div class="cards-list">
+
+      <article class="card" id="ainsa">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Aínsa medieval</h3>
+            <div class="card-subtitle">Sobrarbe · Huesca · 589 m</div>
+          </div>
+          <span class="card-badge badge-pueblo">pueblo</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Plaza Mayor medieval de Aínsa" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Una de las plazas mayores medievales más perfectas de España. Aínsa está en la confluencia del Cinca y el Ara, declarada Conjunto Histórico-Artístico en 1965. La villa medieval está en lo alto de una colina — abajo está el pueblo moderno con servicios. Arriba: murallas del s. XI, la Plaza Mayor porticada, la Iglesia de Santa María románica, el castillo, y las vistas a los dos ríos y al macizo de Monte Perdido al norte.</p>
+          <p>Un dato que no aparece en los folletos: el nombre «Aínsa» probablemente viene del árabe <em>al-Nayyasa</em>, un topónimo prerromano arabizado durante la ocupación. El pueblo existía antes de la reconquista, los árabes lo usaron como punto de control del paso entre el Cinca y el Ara, y los visigodos-aragoneses lo reconquistaron y convirtieron en la capital del pequeño reino de Sobrarbe.</p>
+          <p>La plaza mayor sobrevivió intacta porque la declaración de Monumento Nacional en 1965 frenó la especulación urbanística de los años 70 y 80 que destrozó tantos cascos históricos aragoneses. Sigue teniendo el empedrado medieval, la cisterna central y los soportales originales.</p>
+          <div class="izaguirre-box">
+          <span class="iz-label">📖 Pirenaica · Ander Izaguirre</span>
+          <strong>El reino más pequeño de la historia de España</strong> nació en Aínsa. Cuando los visigodos resistían a los árabes en estas montañas en el s. VIII, se llamó al territorio «Sobrarbe» — literalmente «sobre el árbol», en referencia a la encina donde apareció la cruz luminosa. El primer rey de Sobrarbe fue Garci Jiménez, y el reino no tenía más de unos pocos valles. Ese minúsculo estado montañés fue el embrión del reino de Aragón, que acabó unificándose con Castilla. Sin la resistencia en estos valles, la historia de España — y de América — habría sido otra.
+        </div>
+        <p>Hay una leyenda fundacional: en 724, en plena reconquista, tropas visigodas vieron aparecer una cruz luminosa sobre una carrasca antes de vencer a los sarracenos en este enclave. El mito de la Cruz de Sobrarbe. Se conmemora cada dos años con La Morisma, representación en el pueblo.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — la Plaza Mayor al amanecer</span>
+            La Plaza Mayor porticada sin gente es la foto del viaje. En temporada alta (junio ya hay turistas) el único momento sin gente es muy temprano — las 7-8h de la mañana. Los arcos de piedra con la luz rasante del amanecer proyectan sombras largas sobre el empedrado. La X100 con f/5.6, enfoque en el empedrado, cielo al fondo. Una foto de otra época.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — Monte Perdido desde el castillo</span>
+            Desde las murallas o el castillo, el macizo de Monte Perdido al norte con el doble reflejo en el Cinca y el Ara. En junio puede quedar nieve en el Perdido (3.355m) — el contraste blanco/verde/pueblo de piedra es de otro nivel. Con 100-200mm, la montaña nevada comprimida sobre el pueblo.
+          </div>
+          <p><strong>Horas de luz:</strong> amanecer (6:00-8:00h) para la Plaza sin turistas. Atardecer (19:30-21:00h) para la luz cálida sobre la piedra y las vistas al sur.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Llegada</span><span class="value">10 jun desde Vielha · ~2h por N-230</span></div>
+          <div class="facts-row"><span class="label">Parking</span><span class="value">Aparcamiento junto al río · €3/24h · vaciado camper incluido</span></div>
+          <div class="facts-row"><span class="label">Monumento</span><span class="value">Conjunto Histórico-Artístico desde 1965</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ainsa+pueblo+medieval+Huesca" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-ainsa">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-ainsa" data-note-key="ainsa" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="mediano">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Embalse de Mediano</h3>
+            <div class="card-subtitle">Sobrarbe · Huesca · 20 km de Aínsa</div>
+          </div>
+          <span class="card-badge badge-foto">spot foto</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Campanario emergente Embalse Mediano" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>La historia del campanario emergente es también una historia de violencia institucional. <strong>El pueblo de Mediano fue expropiado forzosamente entre 1959 y 1963</strong> para construir el embalse. Los 300 vecinos tuvieron seis meses para abandonar sus casas, que fueron demolidas — salvo la iglesia y el campanario, cuya demolición resultó técnicamente complicada. Décadas después, cuando el nivel del embalse baja en años secos, el campanario reaparece como un fantasma: lo que fue el centro de un pueblo vivo durante siglos, ahora la única parte visible de toda una comunidad sepultada bajo el agua. Hay documentos fotográficos del proceso de desalojo que circulan entre historiadores locales — imágenes de familias cargando muebles en carros mientras los ingenieros toman mediciones a su alrededor.</p>
+          <p>Cuando el embalse de Mediano baja el nivel del agua — lo que ocurre con frecuencia en primavera y verano por el deshielo que llena el pantano — emerge del agua el campanario del antiguo pueblo de Mediano, inundado en los años 60. Es una imagen que solo existe en este lugar: una torre de piedra surgiendo del agua sin ningún otro elemento arquitectónico visible, con las montañas del Sobrarbe al fondo. En junio 2026 hay probabilidades altas de que el nivel sea alto por la nieve reciente — pero si está emergido, es una foto imprescindible.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — el campanario emergente</span>
+            Si el campanario está visible: desde la orilla norte del embalse, con el 70-200 en torno a 150-200mm, el campanario solitario en el agua con la montaña detrás. Al atardecer la luz cálida convierte la piedra en oro. Al amanecer con niebla baja sobre el agua es perturbador.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — reflejo panorámico</span>
+            Si el agua está en calma, el embalse refleja el macizo de Monte Perdido. Con wide (24-35mm): agua + cielo + montaña en imagen simétrica. Útil aunque el campanario no esté visible.
+          </div>
+          <p><strong>Verificar nivel:</strong> consultar CHE (Confederación Hidrográfica del Ebro) el nivel del embalse antes de ir. Si está al 80%+ del llenado, el campanario no es visible.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Aínsa</span><span class="value">20 km · 20 min · N-260</span></div>
+          <div class="facts-row"><span class="label">Mejor orilla</span><span class="value">Orilla norte · acceso por Arcusa</span></div>
+          <div class="facts-row"><span class="label">Nivel embalse</span><span class="value">Consultar CHE antes: chebro.es</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Embalse+de+Mediano+Sobrarbe+Huesca" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-mediano">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-mediano" data-note-key="mediano" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="anisclo">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Cañón de Añisclo</h3>
+            <div class="card-subtitle">Parque Nacional Ordesa y Monte Perdido · Huesca</div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Cañón de Añisclo río Bellós" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>El menos conocido de los cuatro valles del Parque Nacional de Ordesa y Monte Perdido — y por eso el menos masificado. El río Bellós ha excavado durante millones de años una garganta de paredes verticales de hasta 500m de altura, cubiertas de vegetación exuberante. En junio el río va cargado con el deshielo, la vegetación está en su máximo verde y el contraste con la roca blanca caliza es brutal. Mucho menos concurrido que el Valle de Ordesa.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — dentro del cañón</span>
+            Con wide (24-35mm), la pared de roca vertical en un lateral del encuadre, el río en el fondo y el cielo como una franja estrecha arriba. La luz dentro del cañón es difusa y suave (las paredes bloquean el sol directo) — perfecta para fotografía de naturaleza. El río con velocidad lenta (1/15s) para suavizar el agua.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — detalles</span>
+            La vegetación en las grietas de la roca. Las cataratas menores. Buitres leonados sobrevolando el cañón — con el 70-200 de Carlos hay oportunidades reales cuando sobrevuelan bajo buscando corrientes de aire.
+          </div>
+          <p><strong>Acceso:</strong> desde Aínsa por Escalona y Sercué. La carretera termina en un aparcamiento y la ruta es por el interior del cañón siguiendo el río. Se puede hacer desde 4 km hasta 20 km según el tiempo disponible.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Aínsa</span><span class="value">~40 min · por Escalona</span></div>
+          <div class="facts-row"><span class="label">Parque Nacional</span><span class="value">Ordesa y Monte Perdido · sector Añisclo</span></div>
+          <div class="facts-row"><span class="label">Buitres</span><span class="value">Colonias activas en las paredes del cañón</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ca%C3%B1%C3%B3n+de+A%C3%B1isclo+Parque+Nacional+Ordesa" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-anisclo">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-anisclo" data-note-key="anisclo" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="tella">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Tella · Las Tres Ermitas</h3>
+            <div class="card-subtitle">Sobrarbe · Huesca · 25 min de Aínsa</div>
+          </div>
+          <span class="card-badge badge-monumento">monumento</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ermitas románicas Tella Sobrarbe" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Uno de los paisajes más surrealistas del Pirineo español. Tella es un pequeño pueblo encaramado en lo alto de un promontorio rocoso, con vistas directas al macizo de Monte Perdido. La <strong>Ruta de las Ermitas</strong> conecta tres iglesias románicas del s. XI sobre una cresta de roca — San Juan de Tella, San Bartolomé y Sant Marcial — en un paisaje de película. Las ermitas están literalmente encajadas en la roca, aprovechando la propia piedra como parte de la construcción.</p>
+          <p>Las ermitas no son decorativas: eran el sistema de comunicación visual del Sobrarbe medieval. Cada cresta rocosa con ermita era un punto de vigilancia desde donde se avisaba a los valles con señales de fuego cuando se acercaban tropas enemigas — árabes primero, bandidos después. El sistema de ermitas en altura cubría visualmente todo el valle del Cinca desde Boltaña hasta Broto. Hoy esas mismas posiciones siguen siendo los mejores miradores de la comarca.</p>
+          <p>El pueblo tiene además un museo de las brujas — el Sobrarbe fue zona de procesos por brujería en el s. XVII.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — las ermitas desde el valle</span>
+            La foto que no se puede hacer de otra manera: desde el valle debajo de Tella, las tres ermitas sobre la cresta de roca con el Monte Perdido al fondo. Con el 70-200, la compresión hace que las ermitas parezcan suspendidas en el aire. Es la imagen más particular del Sobrarbe. Mejor con nubes dramáticas al fondo.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — desde arriba</span>
+            Desde el propio promontorio donde están las ermitas, vistas al valle del Cinca y al macizo. La escala del paisaje desde los 1.300m de altitud. Luz de mañana o tarde — al mediodía la piedra caliza brilla demasiado.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Aínsa</span><span class="value">~25 min · por Escalona y desvío</span></div>
+          <div class="facts-row"><span class="label">Ruta ermitas</span><span class="value">4 km circular · fácil · 1h30</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Tella+ermitas+rom%C3%A1nicas+Sobrarbe+Huesca" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-tella">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-tella" data-note-key="tella" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="gavarnie">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Circo de Gavarnie</h3>
+            <div class="card-subtitle">Francia · 1h45 desde Aínsa por Túnel de Bielsa <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-naturaleza">naturaleza</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Circo de Gavarnie Gran Cascada" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>Patrimonio de la Humanidad por la UNESCO (doble distinción: paisajística y cultural — solo 30 lugares en el mundo). Un anfiteatro natural de roca de <strong>1.500 metros de altura</strong> de pared vertical en herradura, con la <strong>Grande Cascade</strong> de 422 metros precipitándose desde el glaciar de Monte Perdido — la cascada más alta de Europa, quinta del mundo. El agua llega de los mismos glaciares del Monte Perdido que reaparecen en el Forau d'Aigualluts en Benasque — el mismo sistema hidrológico que los Uelhs deth Joèu del Arán.</p>
+          <div class="izaguirre-box">
+          <span class="iz-label">📖 Pirenaica · Ander Izaguirre</span>
+          La Grande Cascade de Gavarnie tiene una conexión subterránea con la cascada Uelhs deth Joèu del Arán que descubristeis desde Vielha. El mismo sistema kárstico del glaciar del Monte Perdido: el agua desaparece en el Forau d'Aigualluts en Benasque, viaja 4 km por el subsuelo y reaparece en Artiga de Lin. Pero parte de ese mismo sistema hídrico alimenta también la cascada de Gavarnie por el lado francés. El macizo de Monte Perdido es literalmente una esponja de piedra caliza que filtra el agua hacia tres vertientes distintas — Mediterráneo, Atlántico y Ebro — dependiendo de la grieta por la que salga.
+        </div>
+        <p>El acceso es sencillo: 7 km ida y vuelta desde el pueblo de Gavarnie hasta la base del circo por camino llano entre prados, arroyos y bosques. No hay desnivel significativo. En junio el caudal de la cascada es máximo — el sonido se escucha desde 2 km antes.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — la foto de los Pirineos</span>
+            Desde el interior del circo, mirando norte: el muro de 1.500m de roca con la cascada cayendo en el centro. Con wide (24mm), la escala es imposible de transmitir — incluye personas en el encuadre para dar referencia. La base de la cascada en primer plano, la pared de roca en el fondo. Con el 70-200: solo la cascada en su tramo superior, el agua pulverizada con luz de mediodía creando arcoíris.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 X100 — el camino</span>
+            La ruta de aproximación al circo pasa por praderas verdes con el muro de roca acercándose. La X100 en modo paisaje: los 7 km de camino son un crescendo visual. El pueblo de Gavarnie en sí tiene arquitectura pirenaica francesa interesante para callejear.
+          </div>
+          <p><strong>Logística:</strong> el parking de Gavarnie es de pago y en temporada alta se llena rápido. Salir de Aínsa antes de las 8h, llegar a Gavarnie antes de las 10h. La luz de mañana dentro del circo es lateral — mejor para la roca. Al mediodía la cascada tiene contraluz parcial que puede funcionar con los arcoíris.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Aínsa</span><span class="value">1h45 · Túnel de Bielsa + Peyresourde / directo</span></div>
+          <div class="facts-row"><span class="label">Ruta circo</span><span class="value">7 km ida y vuelta · llana · 2h</span></div>
+          <div class="facts-row"><span class="label">Cascada</span><span class="value">422 m · la más alta de Europa</span></div>
+          <div class="facts-row"><span class="label">UNESCO</span><span class="value">Patrimonio Mundial (paisaje + cultura)</span></div>
+          <div class="facts-row"><span class="label">Parking</span><span class="value">€5 todo el día · llegar antes de las 10h</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Cirque+de+Gavarnie+Hautes-Pyr%C3%A9n%C3%A9es+France" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-gavarnie">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-gavarnie" data-note-key="gavarnie" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="tourmalet">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Col du Tourmalet + Pic du Midi</h3>
+            <div class="card-subtitle">Francia · 2h desde Aínsa por Túnel de Bielsa <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-foto">spot foto</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Col du Tourmalet ciclistas Tour de France" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <div class="izaguirre-box">
+          <span class="iz-label">📖 Pirenaica · Ander Izaguirre</span>
+          En enero de 1910 el periodista <strong>Alphonse Steinès</strong> subió solo al Tourmalet de noche, en pleno invierno, para ver si era practicable por el Tour. El coche no pudo pasar de los 4 km finales. Steinès siguió a pie, cayó a un barranco, pasó la noche en la nieve y fue rescatado a las 3 de la mañana por vecinos de Barèges. Al día siguiente, antes de comer, antes de dormir, antes de darse un baño caliente, se acercó a la oficina de telégrafos y envió este mensaje a su jefe: <em>«Atravesado Tourmalet. Muy buena ruta. Perfectamente practicable. Steinès.»</em> Era la mayor mentira de la historia del ciclismo. El puerto se incluyó en el Tour ese mismo año. El ganador de la etapa, Octave Lapize, llegó a la cima empujando la bicicleta y gritando a los organizadores: <em>«¡Sois unos asesinos!»</em>
+        </div>
+        <p>El puerto de montaña más mítico de la historia del ciclismo. 2.115 metros de altitud, el más alto de los Pirineos franceses. En los más de 100 años del Tour de Francia, el Tourmalet ha sido escalado en más de 80 ediciones — ningún otro puerto del mundo tiene este historial. Su nombre en dialecto gascón significa «mal retorno». En la cima, la estatua de hierro del <strong>Géant du Tourmalet</strong> rinde homenaje a los ciclistas. En junio la carretera ya está abierta y hay ciclistas constantemente.</p>
+          <p>El <strong>Pic du Midi de Bigorre</strong> (2.877m) es adyacente al Tourmalet. Tiene un observatorio astronómico de 140 años, accesible en teleférico desde La Mongie (15 min, sale cada 15 min). Desde la cima: panorámica de 300 km de cadena pirenaica — desde el Mediterráneo hasta el Atlántico. El <em>Ponton du Ciel</em>, una plataforma volada con suelo de cristal, permite «flotar» sobre el vacío.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP + 70-200 — ciclistas en el Tourmalet</span>
+            Con el 70-200 de Carlos: ciclistas subiendo el puerto, la carretera serpenteando al fondo, la cumbre al horizonte. En junio hay ciclistas todo el día — busca encuadres con el vallado histórico del Tour o la señalización con los nombres. La estatua del Géant en primer plano, ciclistas de fondo.
+          </div>
+          <div class="foto-box">
+            <span class="foto-label">📷 RP — Pic du Midi 360°</span>
+            Desde el teleférico y desde la terraza del Pic: 300 km de Pirineos en un solo encuadre. Con wide (24mm) en vertical desde el borde de la plataforma. El observatorio como elemento arquitectónico sobre la roca. Las llamas que pastan en La Mongie (las trajeron de Sudamérica en los 60) son un elemento fotográfico surrealista y único.
+          </div>
+          <p><strong>Combo recomendado:</strong> Salir de Aínsa a las 7h, Túnel de Bielsa → Col d'Aspin (parada foto + vacas) → Tourmalet (fotos, estatua, 30 min) → La Mongie → teleférico Pic du Midi (2-3h arriba) → vuelta. Día completo pero eficiente. Gavarnie merece día separado.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Desde Aínsa</span><span class="value">2h · Túnel Bielsa → Col d'Aspin → Tourmalet</span></div>
+          <div class="facts-row"><span class="label">Tourmalet</span><span class="value">2.115 m · carretera abierta desde mayo</span></div>
+          <div class="facts-row"><span class="label">Pic du Midi</span><span class="value">2.877 m · teleférico €38-42 · sale 9:30-17:00 cada 15 min</span></div>
+          <div class="facts-row"><span class="label">La Mongie</span><span class="value">Base teleférico · parking gratuito</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Col+du+Tourmalet+Hautes-Pyr%C3%A9n%C3%A9es+France" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area">
+          <label for="note-tourmalet">Notas in situ</label>
+          <textarea class="notes-textarea" id="note-tourmalet" data-note-key="tourmalet" placeholder="Lo que quieras recordar…"></textarea>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- RUTAS MTB -->
+<section id="rutas">
+  <div class="container">
+    <div class="section-eyebrow">eMTB</div>
+    <h2 class="section-title">Rutas MTB</h2>
+    <p class="section-intro">Cuatro rutas preseleccionadas para el viaje. Pablo va en eMTB. Carlos también en eMTB. Los desniveles son reales — los km en eMTB se sienten distintos a pie pero el desnivel acumulado pasa factura igual.</p>
+    <div class="cards-list">
+
+      <article class="card" id="ruta-contrabandistas">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Ruta de los Contrabandistas</h3>
+            <div class="card-subtitle">Pallars Sobirà · Sort / Base 2 · 4–6 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta de los contrabandistas Andorra Pallars" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p>La ruta más ambiciosa del viaje en términos de distancia y desnivel. <strong>76,86 km · 2.488 m D+</strong>. Circular desde la zona de Sort/Tirvia, sube por el valle de la Vallferrera hasta Alins, cruza hacia Tor y asciende al Port de Cabús (2.303 m) para entrar en Andorra, baja por las pistas de esquí de Pal hasta Os de Civís, y regresa por el Coll de So (1.920 m) y los pueblos de Farrera, Burg y Tírvia.</p>
+          <p>La ruta lleva el nombre de los contrabandistas que cruzaban la frontera con Andorra cargando tabaco y alcohol a la espalda. El camino histórico entre Alins y Tor que hacían estos hombres (y que los niños de Tor hacían a diario para ir a la escuela, en invierno con nieve) es uno de los tramos más auténticos del Pirineo catalán. El pueblo de <strong>Tor</strong> es tristemente conocido por un crimen entre vecinos sin resolver — hay libros y documentales sobre el asunto.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Perfil y dificultad</h4>
+          <p>La primera parte (Sort → Alins) discurre por carretera y pista asfaltada, relativamente cómoda. A partir de Alins comienza la subida seria al Port de Cabús: pista de tierra con tramos sueltos y roca, 900m de desnivel en ~15 km. El descenso por el lado andorrano hacia Pal es rápido sobre pista. La vuelta desde Os de Civís por el Coll de So cierra el círculo con otro repecho de 400m. Para eMTB el desnivel total (2.488m) es exigente — es la ruta más dura de las cuatro. Con batería llena desde Sort y punto de recarga en Andorra si hace falta (gasolinera/hotel en Pal).</p>
+          <p><strong>Tramo estrella:</strong> el ascenso por el valle de la Vallferrera con el río Noguera de Tor al lado, y la bajada técnica desde el Port de Cabús hacia Tor por pista con piedra suelta.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            El pueblo de <strong>Tor</strong> a media subida — casas de piedra sobre el río, sin apenas turistas. La cima del Port de Cabús (2.303m) da vistas a ambos lados de la frontera: Andorra al norte y el valle de la Vallferrera al sur. Con el 70-200 de Carlos: el Coll de So en la bajada de vuelta, con el valle de Sort al fondo y posiblemente sarrios en las laderas. Pablo con la X100VI para el pueblo de Tor.
+          </div>
+        </div>
+
+        <div class="card-section">
+          <h4>Logística</h4>
+          <p>Salida desde Tirvia o desde Alins (si queréis recortar). El restaurante Hostal Montanya en Alins es buena parada de almuerzo en el punto medio de la ruta. En Andorra (Pal) hay servicios. Llevar comida y agua suficiente para la primera mitad — entre Sort y Alins hay poca cosa.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐⭐⭐ Muy difícil</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">76,86 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">2.488 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">⚠ Levo 500Wh insuficiente para la versión completa. <strong>Versión recomendada:</strong> Sort → Alins → Tor ida y vuelta (~38 km, ~850m D+, ⭐⭐) — el valle de la Vallferrera sin cruzar a Andorra, sin tramos técnicos, todo pista. El pueblo de Tor queda en el recorte.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Mountain Bike · circular</span></div>
+          <div class="facts-row"><span class="label">Cota máx.</span><span class="value">Port de Cabús · 2.303 m</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Sort · 4–6 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: Tombi BTTGarraf</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/3205654?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-contrabandistas">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-contrabandistas" data-note-key="ruta-contrabandistas" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-saut-pish">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Betren · Saut deth Pish · Coll de Varradòs · Bagergue</h3>
+            <div class="card-subtitle">Val d'Arán · Vielha / Base 3 · 6–10 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta BTT Val d'Arán Saut deth Pish Coll Varradòs" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>47,92 km · 1.260 m D+</strong>. La ruta 10 oficial del Centre BTT Vall d'Arán. Circular desde Vielha/Betren siguiendo el valle del Garona hacia el este, sube hasta la <strong>cascada Saut deth Pish</strong> (el mismo que tiene su ficha en la sección Val d'Arán), continúa por pista forestal hasta el <strong>Coll de Varradòs</strong> (2.050 m) y desciende hacia Bagergue, Salardú y Arties, regresando a Vielha por el margen sur del Garona.</p>
+          <p>La ruta conecta visualmente con varias de las fichas de la guía: pasáis literalmente por delante de la cascada Saut deth Pish (que ya habéis visto a pie), cruzáis Bagergue (el pueblo más alto del Arán, con los balcones de flores) y acabáis pasando por Arties. Es la ruta que más integra el componente fotográfico con el ciclístico — en cada parada hay algo que merece la cámara.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Perfil y dificultad</h4>
+          <p>Moderada para eMTB. La subida principal es la más larga: 10 km de asfalto desde Vielha hasta el Saut deth Pish con pendiente media constante (~7%), luego pista hasta el Coll de Varradòs con tramos más inclinados. El descenso a Bagergue es rápido sobre zetas de pista bien mantenida. El regreso de Arties a Vielha discurre por el valle, cómodo. <strong>La pujada contínua es lo exigente</strong> — el desnivel de 1.260m se concentra en los primeros 25 km.</p>
+          <p><strong>Tramo estrella:</strong> la bajada desde el Coll de Varradòs (2.050m) hacia Bagergue por las zetas con vistas al valle del Unhòla y los picos de la Maladeta al fondo.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            La cascada Saut deth Pish desde la bici — hay un mirador justo en la carretera. El Coll de Varradòs tiene panorámica de 360° del Arán y de la Maladeta: parada obligatoria con el RP. La bajada hacia Bagergue: con el RF 24-105 desde la bici en movimiento, la pista serpenteando con los picos al fondo. Carlos con el 70-200 puede intentar fauna en las laderas sobre el coll (zona de sarrios).
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐ Moderada</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">47,92 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.260 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: ~75% batería estimado en modo sport. Cómoda para ambas bicis.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Cota máx.</span><span class="value">Coll de Varradòs · 2.050 m</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Vielha · 6–10 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: juangallostra</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/110639039?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-saut-pish">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-saut-pish" data-note-key="ruta-saut-pish" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-farrigüelo">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Refugio de Farrigüelo · San Felices · Circular</h3>
+            <div class="card-subtitle">Sobrarbe · Aínsa / Base 4 · 10–13 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta BTT Sobrarbe Farrigüelo San Felices" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>50,63 km · 1.207 m D+</strong>. Circular en el Sobrarbe, probablemente desde la zona de Aínsa o Agüero (según el track del autor Alfredo Barberan). La ruta recorre las sierras exteriores del Pirineo aragonés — calizas meseteadas que contrastan con los picos más altos del norte. Pasa por el <strong>Refugio de Farrigüelo</strong> y el <strong>Ermitorio de San Felices</strong>, dos enclaves con mucha historia en la sierra de Guara/Serrablo.</p>
+          <p>La zona de la sierra de Guara es el territorio del buitre leonado por excelencia — colonias de cientos de ejemplares que aprovechan las corrientes térmicas sobre las paredes calizas. A media mañana, cuando el sol calienta las laderas, es habitual ver grupos de 20-30 buitres sobrevolando en círculos ascendentes. Con el 70-200 de Carlos, desde la bici o en parada, las oportunidades son constantes.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Perfil y dificultad</h4>
+          <p>Desnivel moderado (1.207m) bien distribuido — no hay una sola subida brutal sino varios repechos alternados con llanos y descensos. El terreno es característico del prepirineo: pista de tierra caliza, a veces suelta, con vistas más amplias que en los valles altos porque la vegetación es más baja. Las cotas máximas rondan los 1.300m, sin las exigencias de altura de las rutas del Arán o los contrabandistas.</p>
+          <p><strong>Tramo estrella:</strong> el Ermitorio de San Felices, con la ermita excavada parcialmente en la roca, y las vistas al prepirineo desde la zona del refugio de Farrigüelo.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            Buitres leonados sobrevolando — con el 70-200 de Carlos a 200mm, en modo ráfaga, cuando los buitres pasan bajo buscando corrientes. El ermitorio de San Felices: piedra caliza blanca, ermita semirrupestre, con la X100VI. Las vistas hacia el norte desde las sierras exteriores: el Pirineo axial nevado al fondo y las sierras calizas en primer plano — contraste de dos mundos geológicos distintos.
+          </div>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">50,63 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.207 m D+</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Zona</span><span class="value">Prepirineo · Sierras Exteriores</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Aínsa · 10–13 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: Alfredo Barberan</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/181667905?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-farriguelo">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-farriguelo" data-note-key="ruta-farriguelo" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-bagneres">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Bagnères-de-Bigorre · Circular</h3>
+            <div class="card-subtitle">Francia · Aínsa / Base 4 · 10–13 jun <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta BTT Bagnères-de-Bigorre Hautes-Pyrénées" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>25,96 km · 625 m D+</strong>. La ruta más corta y suave de las cuatro, y la única en territorio francés. Circular desde Bagnères-de-Bigorre, discurre por los valles y altiplanos al norte de la ciudad termal, con vistas hacia el Tourmalet y el Pic du Midi. El autor Tito Jiménez la grabó como ruta de iniciación al entorno de las Hautes-Pyrénées.</p>
+          <p>Bagnères-de-Bigorre, que ya aparece en la ficha de la guía como destino fotográfico, aquí es el punto de salida y llegada de la ruta. La ciudad tiene una tradición ciclista muy arraigada — está a pocos kilómetros del Tourmalet y durante el Tour de France se convierte en base de equipos y medios. La ruta circular del track pasa por los valles de Gourguette y Ordizan, con vistas constantes al macizo central pirenaico.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Perfil y dificultad</h4>
+          <p>Fácil para eMTB. Solo 625m de desnivel en 26 km — es la ruta de «día tranquilo» del viaje, ideal si se combina con la visita al Tourmalet y el Pic du Midi en el mismo día (llegáis en coche, hacéis la ruta circular en 2-3h, luego subís al Tourmalet). El terreno mezcla carretera secundaria y pista, típico del piedemonte francés: más suave y más verde que el lado español.</p>
+          <p><strong>Contexto:</strong> los valles alrededor de Bagnères son por donde los gregarios del Tour hacen sus reconocimientos antes de las etapas pirenaicas. En junio hay ciclistas por todas partes.</p>
+        </div>
+
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            El Pic du Midi asomando sobre el horizonte durante toda la ruta — con el 70-200 de Carlos en los puntos altos, el observatorio visible con la nieve de junio. Ciclistas franceses en los repechos. La ciudad de Bagnères desde los altiplanos, con el centro termal belle époque abajo. El contraste de la arquitectura y paisajismo francés (más ordenado, más arbolado) respecto al lado español.
+          </div>
+          <p><strong>Combo recomendado:</strong> esta ruta + subida al Tourmalet en el mismo día. Hacer la circular por la mañana (2-3h), comer en Bagnères y subir al Tourmalet por la tarde. El Pic du Midi requeriría día separado por el tiempo en la cumbre.</p>
+        </div>
+
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐ Fácil</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">25,96 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">625 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: ~35% batería. La más cómoda del viaje para la autonomía.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">País</span><span class="value">Francia · Hautes-Pyrénées</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Aínsa · 10–13 jun (día excursión Francia)</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: Tito Jiménez</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/113442936?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-bagneres">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-bagneres" data-note-key="ruta-bagneres" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <!-- ── NUEVAS RUTAS ── -->
+
+      <article class="card" id="ruta-mega-tampanada">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Mega Tampanada 2024</h3>
+            <div class="card-subtitle">Pallars Sobirà · Sort / Base 2 · 4–6 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Mega Tampanada 2024 Tremp Pallars" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>39,08 km · 990 m D+</strong>. Circular desde la zona de Tremp/Navarrot, en el Pallars Jussà justo al sur de la base de Sort. Recorre los bosques y crestas del sector meridional del Pallars, con varios tramos de sendero técnico y pista forestal. El autor airsanti147 es referencia de rutas eMTB en la zona del Pallars — sus tracks están bien optimizados para asistencia eléctrica.</p>
+          <p>La zona de Tremp/Noguera Pallaresa es el prepirinero calcáreo en transición hacia las sierras interiores — paisaje más abierto que los valles altos, con buitres leonados sobrevolando constantemente las paredes de los barrancos. Desnivel moderado y distancia manejable — buena opción para el día de llegada o para completar una jornada más corta.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            Zona de buitres leonados — con el 70-200 de Carlos en los tramos por crestas. Los bosques del Pallars Jussà en junio son densos y con mucha luz filtrada — la X100VI de Pablo funciona bien en ese ambiente de luz difusa entre árboles.
+          </div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐ Moderada</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">39,08 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">990 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: ~60% batería estimado.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Sort · 4–6 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: airsanti147</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/173076011?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-mega-tampanada">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-mega-tampanada" data-note-key="ruta-mega-tampanada" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-stravada">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Stravada 2024</h3>
+            <div class="card-subtitle">Pallars · Sort–Tremp / Base 2 · 4–6 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Stravada 2024 Pallars Tremp Noguera" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>56,13 km · 1.700 m D+</strong>. La versión grande del mismo autor (airsanti147). Circular desde Navarrot/Tremp, sube por el valle hasta la zona de Talarn y los embalses de la Noguera Pallaresa, da la vuelta por el oeste con vistas al pantano de Sant Antoni y regresa. El desnivel de 1.700m en Mountain Bike (sin asistencia eléctrica en el track original) es exigente — en eMTB es perfectamente gestionable pero hay que salir con batería llena.</p>
+          <p>El embalse de Sant Antoni/Tremp aparece claramente en el mapa — otro caso de pueblo inundado, similar al campanario de Mediano en Aínsa. La Noguera Pallaresa es el río más importante del Pallars y la referencia del kayak de aguas bravas en España.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            El embalse de Tremp desde las crestas — con el RP + RF 24-105mm, la masa de agua rodeada de sierras calizas. La zona de Talarn tiene un castillo medieval en altura sobre el embalse — con el 70-200 de Carlos, el castillo desde la pista de enfrente.
+          </div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐⭐ Difícil</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">56,13 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.700 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: puede ajustar en los últimos km. Salir en eco desde el principio o valorar versión recortada (~40 km, ~1.100m).</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Mountain Bike · circular</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Sort · 4–6 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: airsanti147</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/162939600?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-stravada">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-stravada" data-note-key="ruta-stravada" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-crodos">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Cròdos — Alta Montaña desde Vielha</h3>
+            <div class="card-subtitle">Val d'Arán · Vielha / Base 3 · 6–10 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta Cròdos alta montaña Val d'Arán Vielha" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>38,55 km · 1.452 m D+</strong>. Circular desde Vielha que sube a la zona del <strong>Tuc de Guilhèm (2.390m)</strong> y el <strong>Montcorbau (2.390m)</strong> — los picos que dominan el Arán por el norte. El Cròdos es la zona de alta montaña al norte de Vielha, sobre los bosques del Garona. La ruta es relativamente corta en kilómetros pero el desnivel acumulado de 1.452m sube hasta casi 2.400m de altitud — territorio de alta montaña real con nieve posible en junio en las zonas umbrías.</p>
+          <p>El Tuc de Guilhèm forma parte de la divisoria de aguas entre el Arán (vertiente atlántica) y el norte de Francia. Desde la cima, vistas al Circ de Colomèrs al este y al Val d'Arán completo al sur.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta · alta montaña</span>
+            Desde los collados sobre 2.300m, vistas a todo el Arán y al macizo de la Maladeta. Con el RP + RF 16mm: panorámica total desde el punto más alto de la ruta, la cordillera hacia el este y el oeste. Con el 70-200 de Carlos: fauna en las laderas altas (sarrios muy probables en esta zona sobre Vielha). Llevar las dos cámaras preparadas en los tramos de cumbre.
+          </div>
+          <p><strong>Nota técnica:</strong> posible nieve en zonas umbrías por encima de 2.200m en junio temprano. Verificar condiciones antes de salir — el Centre BTT Vall d'Arán tiene información actualizada en su web.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐⭐ Difícil</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">38,55 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.452 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">⚠ Levo 500Wh: límite de autonomía en la versión completa a 2.390m. <strong>Versión recomendada:</strong> bajar en el primer coll (~22 km, ~900m, ⭐⭐⭐) — panorámica completa del Arán sin forzar la batería.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Cota máx.</span><span class="value">~2.390 m (Tuc de Guilhèm)</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Vielha · 6–10 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: jfuentesp</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/106784667?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-crodos">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-crodos" data-note-key="ruta-crodos" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-llivia-eyne">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Sainte-Léocadie · Eyne · Mont-Louis · Llívia</h3>
+            <div class="card-subtitle">Cerdanya francesa · Puigcerdà / Base 1 · 3–4 jun <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta eMTB Cerdanya francesa Llívia Mont-Louis" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>53,11 km · 1.397 m D+</strong>. Circular desde Sainte-Léocadie (Cerdanya francesa, justo al norte de Llívia) que recorre el alto valle del Tech hacia <strong>Eyne</strong>, sube hasta <strong>Mont-Louis</strong> y <strong>La Cabanasse/Pyrénées 2000</strong>, y regresa por las laderas de la Cerdagne pasando de nuevo por Llívia antes de cerrar el círculo. Una ruta que literalmente conecta España y Francia en el mismo track — cruzáis la frontera al menos dos veces.</p>
+          <p><strong>Mont-Louis</strong> es una plaza fuerte construida por Vauban en 1679 para Luis XIV, un año después del Tratado de los Pirineos — la misma negociación que dejó a Llívia rodeada de Francia. Patrimonio de la Humanidad. <strong>Eyne</strong> es un pueblo al pie de las laderas norte del Canigó con la reserva natural del Valle de Eyne, muy conocida entre botánicos por la concentración excepcional de flora alpina.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            Mont-Louis con las murallas de Vauban desde la pista — con el RP + RF 35mm, la fortaleza en el horizonte de la llanura de la Cerdagne. La llanura desde las laderas altas sobre Eyne: la Cerdanya entera en una sola foto, con la sierra del Cadí al sur (España) y los picos de la Cerdagne al norte (Francia). Llívia desde el norte, ángulo diferente al que veréis desde carretera.
+          </div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐ Moderada</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">53,11 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.397 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: ~85% batería estimado. La más equilibrada para la Cerdanya.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Países</span><span class="value">Francia y España · cruza frontera</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Puigcerdà · 3–4 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: airsanti147</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/148210738?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-llivia-eyne">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-llivia-eyne" data-note-key="ruta-llivia-eyne" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-tena-yosa">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Enduro Valle de Tena · Selva de Yosa · Escuer</h3>
+            <div class="card-subtitle">Valle de Tena · Biescas · Aínsa / Base 4 · 10–13 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta Enduro Valle de Tena Yosa Escuer Biescas" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>32,84 km · 1.297 m D+</strong>. Ruta de enduro desde <strong>Biescas</strong> (Valle de Tena, al norte de Sabiñánigo) que sube a la <strong>Selva de Yosa</strong> y <strong>Escuer</strong> — los bosques densos del Pirineo axial aragonés. El track del autor Iuten Enduro eBike Cantabria es técnico: «enduro» implica sendero, bajadas rápidas, tramos exigentes. La zona del Pico de San Antón (1.715m) y el Puntal del Pueyo (1.620m) son el núcleo de la ruta.</p>
+          <p>El valle de Tena es también la puerta de entrada al macizo del Monte Perdido desde el oeste, y la vía de comunicación histórica entre Aragón y Francia por el Puerto del Portalet. Biescas está a ~50 km de Aínsa por la N-260 — accesible en día de excursión sin cargar la bici al coche (directamente en ruta).</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            La Selva de Yosa en junio: bosque mixto de hayas y pinos con la luz filtrada de junio. La X100VI de Pablo para el bosque cerrado y los senderos técnicos. Con el RP + RF 16mm: los prados sobre Biescas con el macizo de Panticosa/Balneario al fondo. La ruta pasa por Escuer — pequeño núcleo de piedra con vistas al canal del río Gállego.
+          </div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐ Moderada–técnica</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">32,84 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.297 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">Levo 500Wh: ~55% batería. ⚠ Tramos de enduro con sendero técnico (raíces, roca); si se prefiere algo más rodado, sustituir por Farrigüelo · San Felices desde Aínsa.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · enduro · técnica</span></div>
+          <div class="facts-row"><span class="label">Inicio</span><span class="value">Biescas · Valle de Tena</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Aínsa · 10–13 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: Iuten Enduro eBike</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/231807048?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-tena-yosa">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-tena-yosa" data-note-key="ruta-tena-yosa" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-ainsa-mediano">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Aínsa · Zona Cero · Vuelta al Embalse de Mediano</h3>
+            <div class="card-subtitle">Sobrarbe · Aínsa / Base 4 · 10–13 jun</div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta eMTB Aínsa vuelta Embalse Mediano" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>66,3 km · 1.669 m D+</strong>. La ruta más larga de las del Sobrarbe. Circular desde Aínsa que rodea completamente el <strong>embalse de Mediano</strong> — el mismo que tiene su ficha fotográfica con el campanario emergente. La ruta pasa por ambas orillas del embalse, sube a las sierras que lo rodean y conecta Aínsa con los pueblos de <strong>Plampalacios</strong> y <strong>Palo</strong> en la orilla sur, con vistas constantes al agua azul y al macizo del Monte Perdido al norte.</p>
+          <p>La «Zona Cero» que aparece en el nombre es la denominación que el sector del bikepark y las rutas oficiales de Aínsa dan a su centro de gravedad para MTB — Aínsa tiene una de las mayores concentraciones de rutas señalizadas de enduro y XC del Pirineo español, con pistas construidas específicamente para MTB en los últimos años. Es un destino consolidado en el mundo del MTB europeo.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta</span>
+            El embalse desde la orilla sur (zona de Palo): perspectiva opuesta a la de la ficha fotográfica, con Aínsa y el Monte Perdido al fondo. Con el RP + RF 24-105mm: el agua azul del embalse en primer plano y la sierra de Guara cerrando el horizonte sur. Si el campanario está emergido, la ruta pasa suficientemente cerca para fotografiarlo desde distintos ángulos y distancias. Carlos con el 70-200 para el campanario desde lejos sobre el agua.
+          </div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐⭐ Difícil</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">66,3 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">1.669 m D+</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">⚠ Levo 500Wh: 66 km superan la autonomía en modo sport. Solo viable en eco completo o como ruta para la Canyon (720Wh). Considerar hacer solo la mitad sur del circuito (~35 km).</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Bicicleta Eléctrica · circular</span></div>
+          <div class="facts-row"><span class="label">Elemento</span><span class="value">Embalse de Mediano · Zona Cero Aínsa</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Aínsa · 10–13 jun</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: airsanti147</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/110746785?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-ainsa-mediano">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-ainsa-mediano" data-note-key="ruta-ainsa-mediano" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+      <article class="card" id="ruta-tourmalet-pic">
+        <div class="card-header">
+          <div class="card-title">
+            <h3>Tourmalet 2.115m + Pic du Midi 2.877m</h3>
+            <div class="card-subtitle">Francia · Aínsa / Base 4 · 10–13 jun <span class="france-tag">🇫🇷 Francia</span></div>
+          </div>
+          <span class="card-badge badge-ruta">ruta MTB</span>
+        </div>
+        <div class="card-hero"><img src="" alt="Ruta MTB Tourmalet Pic du Midi Campan" loading="lazy" onerror="this.parentElement.style.display='none'"></div>
+        <div class="card-section">
+          <h4>La ruta</h4>
+          <p><strong>50,24 km · 2.249 m D+</strong>. La ruta más dura de todo el viaje después de la de los Contrabandistas, y la única que sube físicamente hasta los 2.877m del <strong>Pic du Midi de Bigorre</strong>. El track del autor EuskadienBTT parte desde la zona de Campan, sube al <strong>Col du Tourmalet</strong> (2.115m) y desde allí continúa hasta la base del teleférico del Pic du Midi en La Mongie — combinando la ascensión clásica del Tour de France con la cumbre del observatorio.</p>
+          <p>2.249m de desnivel acumulado es un número serio incluso en eMTB. Hay que planificar la batería cuidadosamente — el Tourmalet son 18,9 km a 7,4% de media desde Luz-Saint-Sauveur o 17 km desde Campan. La bajada desde el col es rápida pero técnica en algunos tramos. El track aparentemente hace la ruta completa subida/bajada sin el teleférico, lo que la convierte en una de las jornadas más épicas que podéis hacer en los Pirineos.</p>
+        </div>
+        <div class="card-section">
+          <h4>Para la foto</h4>
+          <div class="foto-box">
+            <span class="foto-label">📷 En ruta · la jornada fotográfica más potente</span>
+            La estatua del Géant du Tourmalet en la cima del col, con la carretera del Tour al fondo. Carlos con el 70-200: ciclistas subiendo el Tourmalet en pleno esfuerzo, compresión de la carretera serpenteante. Pablo con el RF 16mm desde la cima del col: panorámica de 180° del Pirineo central francés. Si subís al Pic du Midi: el observatorio en la cima y el Ponton du Ciel — la pasarela sobre el vacío. Vista de 300 km de cadena pirenaica desde 2.877m.
+          </div>
+          <p><strong>Nota batería:</strong> 2.249m de desnivel es exigente para cualquier eMTB. Salir con batería al 100% y estudiar si hay punto de recarga en La Mongie (estación de esquí, probable que haya) o en el propio Pic du Midi. La bajada recupera pero no compensa todo lo subido.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Dificultad</span><span class="value">⭐⭐⭐⭐⭐ Extrema</span></div>
+          <div class="facts-row"><span class="label">Distancia</span><span class="value">50,24 km</span></div>
+          <div class="facts-row"><span class="label">Desnivel</span><span class="value">2.249 m D+ ⚠ exigente</span></div>
+          <div class="facts-row"><span class="label">Batería</span><span class="value" style="font-size:.82rem;line-height:1.4;">⚠ Levo 500Wh: 2.249m D+ agota la batería. Requiere confirmar punto de recarga en La Mongie (estación de esquí) antes de salir. La Canyon 720Wh tiene más margen pero también al límite.</span></div>
+          <div class="facts-row"><span class="label">Tipo</span><span class="value">Mountain Bike · alta montaña</span></div>
+          <div class="facts-row"><span class="label">Cotas</span><span class="value">Tourmalet 2.115m · Pic du Midi 2.877m</span></div>
+          <div class="facts-row"><span class="label">País</span><span class="value">Francia · Hautes-Pyrénées</span></div>
+          <div class="facts-row"><span class="label">Base</span><span class="value">Aínsa · 10–13 jun (excursión Francia)</span></div>
+          <div class="facts-row"><span class="label">Wikiloc</span><span class="value">Track: EuskadienBTT</span></div>
+        </div>
+        <a class="maps-link" href="https://loc.wiki/t/41896372?h=epo38e46pj&wa=so&la=es" target="_blank" rel="noopener">Ver en Wikiloc</a>
+        <div class="notes-area">
+          <label for="note-ruta-tourmalet-pic">Notas de ruta</label>
+          <textarea class="notes-textarea" id="note-ruta-tourmalet-pic" data-note-key="ruta-tourmalet-pic" placeholder="Condiciones, incidencias, km de batería…"></textarea>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+<!-- GASTRONOMÍA -->
+<section id="gastronomia">
+  <div class="container">
+    <div class="section-eyebrow">Dónde comer</div>
+    <h2 class="section-title">Plan gastronómico</h2>
+    <p class="section-intro">Cocina de montaña honesta, producto local, sin pretensiones. Y un capricho con estrella Michelin en Aínsa que reserváis hoy.</p>
+
+    <div style="margin-bottom:2rem;padding:.85rem 1.1rem;background:color-mix(in srgb,var(--accent) 10%,transparent);border-left:3px solid var(--accent);border-radius:0 5px 5px 0;font-size:.9rem;line-height:1.6;">
+      <strong style="font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.3rem">⚠ Reserva urgente — salís en 6 días</strong>
+      <span style="font-family:'Lora',serif;font-style:italic;"><strong style="font-style:normal">Callizo</strong> (Aínsa · ⭐ Michelin) — reservar ahora: <a href="https://restaurantecallizo.es/en/reservation/" target="_blank" rel="noopener" style="color:var(--accent)">restaurantecallizo.es/en/reservation/</a> · +34 974 500 385. Penalización €60/persona si cancelas con menos de 48h. El resto no requieren reserva.</span>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond','Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--ink);margin:1rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft);">Pallars Sobirà · Sort · 4–6 jun</h3>
+    <p style="font-size:.93rem;color:var(--ink-soft);margin-bottom:1rem;font-style:italic;">Cocina de pastores. Oveja xisqueta, queso tupí, embutidos caseros, trucha del Noguera.</p>
+    <div class="cards-list" style="gap:1.25rem;">
+
+      <article class="card" id="gastro-lo-pigal">
+        <div class="card-header">
+          <div class="card-title"><h3>Lo Pigal Casa Kiko</h3><div class="card-subtitle">Sort · el mejor del Pallars según locales</div></div>
+          <span class="card-badge badge-monumento">top local</span>
+        </div>
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>El chef <strong>Arturo</strong> y el maître <strong>Ivan</strong> llevan décadas haciendo de este sitio la referencia gastronómica del Pallars Sobirà. Cocina de producto de proximidad — cuando el chef está inspirado improvisa platos fuera de carta que superan a los de la lista. La terraza tiene vistas a las montañas de Bernui. No es caro para lo que es.</p>
+          <p><strong>Especialidades:</strong> en junio ya empiezan las primeras setas — carpaccio de ceps, saltado de rovellons, entrecot a la llosa. El postre <em>Filiberto</em> es obligado — preguntad qué es cuando lleguéis, es una sorpresa.</p>
+          <div class="foto-box"><span class="foto-label">💡 Consejo</span>Llamad antes para avisar que vais — Arturo prepara mejores platos cuando sabe que hay gente con interés real en la comida.</div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€35-45/persona con vino</span></div>
+          <div class="facts-row"><span class="label">Reserva</span><span class="value">Recomendable llamar con 1-2 días</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Cena día 4 o 5 jun</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Lo+Pigal+Casa+Kiko+Sort+Lleida" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-lopigal">Notas</label><textarea class="notes-textarea" id="note-gastro-lopigal" data-note-key="gastro-lopigal" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-cafe-pessets">
+        <div class="card-header">
+          <div class="card-title"><h3>Café Pessets</h3><div class="card-subtitle">Sort · siete generaciones · desde s. XIX</div></div>
+          <span class="card-badge badge-pueblo">histórico</span>
+        </div>
+        <div class="card-section">
+          <p>La familia Aytés lleva siete generaciones en la hostelería de Sort. El más antiguo de la comarca — menú del día con producto local a precio razonable. Para la <strong>comida del día 5</strong> tras la ruta, antes del traslado a Vielha.</p>
+          <p><strong>Qué pedir en cualquier restaurante del Pallars:</strong> oveja xisqueta (autóctona, más sabrosa que el cordero común), tupí (queso fermentado con aguardiente, muy potente), embutidos caseros de cerdo de montaña, trucha del Noguera Pallaresa.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€15-22/persona · menú del día</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Comida día 5 tras la ruta</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Cafe+Pessets+Sort+Pallars" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-pessets">Notas</label><textarea class="notes-textarea" id="note-gastro-pessets" data-note-key="gastro-pessets" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond','Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--ink);margin:2rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft);">Val d'Arán · Vielha · 6–10 jun</h3>
+    <p style="font-size:.93rem;color:var(--ink-soft);margin-bottom:1rem;font-style:italic;">La base gastronómica más rica. Cuatro noches, mezcla vasca-francesa-catalana. Olla aranesa, txuletón, pintxos, fondue.</p>
+    <div class="cards-list" style="gap:1.25rem;">
+
+      <article class="card" id="gastro-unhola">
+        <div class="card-header">
+          <div class="card-title"><h3>Restaurante Unhòla</h3><div class="card-subtitle">Bagergue · el capricho del Arán</div></div>
+          <span class="card-badge badge-monumento">top arán</span>
+        </div>
+        <div class="card-section">
+          <h4>Qué es</h4>
+          <p>El restaurante del Arán que más aparece en todas las listas y que los locales señalan cuando les preguntas. Está en <strong>Bagergue</strong>, el pueblo más alto del Arán — el mismo que tenéis en la ficha fotográfica. Fusión vasca-francesa-aranesa: olla aranesa de verdad, <strong>txuletón de buey</strong> a la brasa, txipirones rellenos en salsa de marisco, ensalada de queso de cabra con vinagre de sidra y fresas de Bausen. El entorno a 1.400m con vistas a la Maladeta hace el resto.</p>
+          <p>Ideal combinarlo con la visita fotográfica a Bagergue — o como cena tras la ruta del Saut deth Pish, que pasa precisamente por el pueblo.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€40-55/persona con vino</span></div>
+          <div class="facts-row"><span class="label">Reserva</span><span class="value">Recomendable · llamar con 1 día</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Día 7 (sáb) o día 8 (dom, tras la ruta)</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Unhola+Bagergue+Val+d+Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-unhola">Notas</label><textarea class="notes-textarea" id="note-gastro-unhola" data-note-key="gastro-unhola" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-casa-turnay">
+        <div class="card-header">
+          <div class="card-title"><h3>Casa Turnay</h3><div class="card-subtitle">Escunhau · 2 km de Vielha · olla aranesa</div></div>
+          <span class="card-badge badge-pueblo">cocina casera</span>
+        </div>
+        <div class="card-section">
+          <p>Restaurante familiar en Escunhau que lleva décadas preparando lo que muchos consideran la mejor olla aranesa del valle. Cocina casera sin pretensiones, precio muy razonable. También civet de jabalí, trucha aranesa, costillas de cordero y butifarra negra. <strong>La olla aranesa</strong> es un potaje contundente con varios tipos de carne y verduras — pedirla de mediodía, nunca de noche (suele estar agotada).</p>
+          <p><strong>Para qué va bien:</strong> comida de recuperación tras la ruta del Saut deth Pish el día 8 (domingo) o tras Luchon el día 9. El mejor calidad/precio del Arán.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€25-35/persona · excelente calidad/precio</span></div>
+          <div class="facts-row"><span class="label">Cierre</span><span class="value">Miércoles cerrado</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Comida día 9 (lun) tras volver de Luchon</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Casa+Turnay+Escunhau+Val+d+Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-turnay">Notas</label><textarea class="notes-textarea" id="note-gastro-turnay" data-note-key="gastro-turnay" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-tauernes-urtau">
+        <div class="card-header">
+          <div class="card-title"><h3>Tauèrnas Urtau</h3><div class="card-subtitle">Vielha · Arties · Bossòst · pintxos y tapas</div></div>
+          <span class="card-badge badge-pueblo">pintxos · tapas</span>
+        </div>
+        <div class="card-section">
+          <p>Tres locales en el Arán con el mismo concepto: pintxos vascos, butifarra de Arán, olla aranesa, tapas. El de Vielha tiene terraza de verano junto al río Nere. Ambiente animado, precios de bar, calidad consistente. El plan de <strong>cena informal</strong> después de un día largo de ruta cuando no queréis restaurante formal.</p>
+          <p>Pintxos estrella: pan con longaniza aranesa, foie con manzana caramelizada, mini hamburguesas, alcachofas fritas.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€15-20/persona</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Cualquier noche informal del Arán</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Tauernes+Urtau+Vielha+Val+d+Aran" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-urtau">Notas</label><textarea class="notes-textarea" id="note-gastro-urtau" data-note-key="gastro-urtau" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-fondue-aran">
+        <div class="card-header">
+          <div class="card-title"><h3>Fondue y Raclette en el Arán</h3><div class="card-subtitle">Vielha · influencia francesa de montaña</div></div>
+          <span class="card-badge badge-naturaleza">fondue · raclette</span>
+        </div>
+        <div class="card-section">
+          <p>La proximidad con Francia hace que el Arán tenga una tradición alpina que no existe en el resto del Pirineo español. La web oficial de turismo del Arán lista una <strong>creperie especializada en fondue y raclette</strong> en Vielha. Confirmar apertura en junio (algunos cierran fuera de temporada de esquí) buscando «fondue Vielha» cuando lleguéis.</p>
+          <p><strong>Alternativa segura:</strong> el Restaurant Era Coquela en Vielha tiene platos de queso fundido y cocina de montaña de influencia francesa. También el Molí, junto al río Nere.</p>
+          <p>Si el día de Luchon coméis allí — la ciudad termal tiene varios restaurantes con raclette y platos del Béarn. Más auténtico aún.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€25-35/persona · fondue completa</span></div>
+          <div class="facts-row"><span class="label">Nota</span><span class="value">Confirmar apertura en junio</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=fondue+raclette+Vielha+Val+d+Aran" target="_blank" rel="noopener">Buscar en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-fondue">Notas</label><textarea class="notes-textarea" id="note-gastro-fondue" data-note-key="gastro-fondue" placeholder="Dónde lo encontréis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-pizza-boveda">
+        <div class="card-header">
+          <div class="card-title"><h3>La Bóveda · pizzería</h3><div class="card-subtitle">Vielha · pizza con ingredientes locales</div></div>
+          <span class="card-badge badge-pueblo">pizza</span>
+        </div>
+        <div class="card-section">
+          <p>Apareció en <em>Joc de Cartes</em> (TV3, 2025) como referencia de pizza en el Arán. El chef Sebas Perea hace pizzas con masa artesanal e ingredientes locales: llonganissa aranesa, setas, queso del Arán. Para la noche informal en Vielha cuando no querés esfuerzo ni reserva.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€15-22/persona</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=La+Boveda+pizzeria+Vielha" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-boveda">Notas</label><textarea class="notes-textarea" id="note-gastro-boveda" data-note-key="gastro-boveda" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond','Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--ink);margin:2rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft);">Sobrarbe · Aínsa · 10–13 jun</h3>
+    <p style="font-size:.93rem;color:var(--ink-soft);margin-bottom:1rem;font-style:italic;">Ternasco de Aragón, chuletón, longaniza pirenaica. Y el capricho del viaje: el único Michelin del recorrido.</p>
+    <div class="cards-list" style="gap:1.25rem;">
+
+      <article class="card" id="gastro-callizo">
+        <div class="card-header">
+          <div class="card-title"><h3>Restaurante Callizo ⭐</h3><div class="card-subtitle">Plaza Mayor · Aínsa · cocina tecno-emocional de montaña</div></div>
+          <span class="card-badge badge-monumento">⭐ Michelin</span>
+        </div>
+        <div class="card-section">
+          <h4>El capricho del viaje</h4>
+          <p>El único restaurante con estrella Michelin del Sobrarbe. Los chefs <strong>Josetxo Souto y Ramón Aso</strong> llevan años haciendo lo que la Guía Repsol llama «efecto WOW de principio a fin». Producto pirenaico de pequeños productores (piscifactoría de El Grado, huerta del Sobrarbe, caza local) con técnicas de vanguardia sin perder la raíz de montaña. Terraza con vistas a la Peña Montañesa desde la Plaza Mayor medieval.</p>
+          <p>Tres menús: <strong>Tierra</strong>, <strong>Piedras</strong> y Niños. No es un restaurante intimidante — la sala es cálida, os contarán la historia de cada plato, se hacen vuestros amigos. Varios reseñistas lo describen como «la mejor comida de toda España».</p>
+          <div class="foto-box"><span class="foto-label">⚠ Reservar HOY</span>reservantecallizo.es/en/reservation/ · +34 974 500 385 · Penalización €60/persona si no cancelas con 48h. Cerrado lunes noche y martes.</div>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">>€60/persona · menú degustación</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Día 11 (mié) o día 12 (jue) · no martes</span></div>
+          <div class="facts-row"><span class="label">Reserva</span><span class="value">restaurantecallizo.es · 974 500 385</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Callizo+Plaza+Mayor+Ainsa" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-callizo">Notas</label><textarea class="notes-textarea" id="note-gastro-callizo" data-note-key="gastro-callizo" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-parrilla-ainsa">
+        <div class="card-header">
+          <div class="card-title"><h3>La Parrilla · Asador</h3><div class="card-subtitle">Av. Ordesa 13 · Aínsa · chuletón referencia</div></div>
+          <span class="card-badge badge-pueblo">asador</span>
+        </div>
+        <div class="card-section">
+          <p>El asador más valorado de Aínsa por calidad/precio. <strong>Chuletón de buey excepcional</strong>, parrillada variada con ternasco y longaniza aragonesa, huevos rotos, postres caseros. Dos personas con vino por ~€60 total. Terraza agradable. Para la comida de celebración tras una jornada de ruta, sin las formalidades del Callizo.</p>
+          <p><strong>Qué pedir en Aínsa:</strong> ternasco de Aragón (IGP) al horno o a la brasa — el mejor cordero lechal del Pirineo español. Longaniza del Pirineo aragonés. Vino de Somontano (DO Huesca, a 40 km al sur).</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€30/persona · muy buen calidad/precio</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Comida día 11 o 12 (el que no sea Callizo)</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=La+Parrilla+Asador+Ainsa+Avenida+Ordesa" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-parrilla">Notas</label><textarea class="notes-textarea" id="note-gastro-parrilla" data-note-key="gastro-parrilla" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-siete-ainsa">
+        <div class="card-header">
+          <div class="card-title"><h3>Gastrobar Sie7e + L'Abrevadero</h3><div class="card-subtitle">Aínsa · casco antiguo · tapeo y cerveza artesanal</div></div>
+          <span class="card-badge badge-pueblo">tapas · bar</span>
+        </div>
+        <div class="card-section">
+          <p><strong>Gastrobar Sie7e</strong> — el epicentro del tapeo en Aínsa. Pequeño, animado, frecuentado por locales y turistas. Buenas tapas, ambiente vivo. Subir escaleras para llegar — está escondido en el casco, preguntad.</p>
+          <p><strong>L'Abrevadero</strong> — en el casco antiguo, especializado en cerveza artesanal del Pirineo aragonés. Para el aperitivo del día 10 al llegar o después de cualquier ruta.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Precio</span><span class="value">~€15-20/persona · tapas y bebida</span></div>
+          <div class="facts-row"><span class="label">Cuándo</span><span class="value">Tarde del día 10 al llegar · cualquier noche</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Gastrobar+Sie7e+Ainsa" target="_blank" rel="noopener">Ver en Google Maps</a>
+        <div class="notes-area"><label for="note-gastro-siete">Notas</label><textarea class="notes-textarea" id="note-gastro-siete" data-note-key="gastro-siete" placeholder="Lo que recordéis…"></textarea></div>
+      </article>
+
+    </div>
+
+    <div style="margin-top:2.5rem;padding:1rem 1.25rem;background:var(--bg-soft);border-radius:6px;font-size:.9rem;line-height:1.75;">
+      <strong style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--gold);display:block;margin-bottom:.5rem;">Resumen del plan</strong>
+      <span style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);">
+        <strong style="font-style:normal;color:var(--ink)">Capricho 1 (Sort):</strong> Lo Pigal Casa Kiko · cena día 4 o 5 · ~€40/persona<br>
+        <strong style="font-style:normal;color:var(--ink)">Capricho 2 (Aínsa):</strong> Callizo ⭐ · día 11 o 12 · >€60/persona · <strong style="font-style:normal;color:var(--accent)">reservar ahora mismo</strong><br>
+        <strong style="font-style:normal;color:var(--ink)">Calidad/precio:</strong> Casa Turnay (olla aranesa) · La Parrilla (chuletón Aínsa)<br>
+        <strong style="font-style:normal;color:var(--ink)">Noche informal:</strong> Tauèrnas Urtau (pintxos) · Sie7e (tapas) · La Bóveda (pizza Vielha)<br>
+        <strong style="font-style:normal;color:var(--ink)">Fondue/raclette:</strong> buscar creperie Vielha · confirmar apertura junio<br>
+        <strong style="font-style:normal;color:var(--ink)">Cerveza artesanal:</strong> L'Abrevadero (Aínsa) · Urtau (Vielha)
+      </span>
+    </div>
+
+    <!-- OPCIONES DEL DÍA A DÍA -->
+    <h3 style="font-family:'Cormorant Garamond','Garamond',serif;font-style:italic;font-size:1.3rem;color:var(--ink);margin:2rem 0 .4rem;padding-bottom:.4rem;border-bottom:1px solid var(--line-soft);">Opciones del día a día · €10–22/persona</h3>
+    <p style="font-size:.93rem;color:var(--ink-soft);margin-bottom:1rem;font-style:italic;">Para comer y cenar sin gastar más de €20. Barras de bar, menús del día, bocadillos, pizzerías. Un par de opciones por zona.</p>
+
+    <div class="cards-list" style="gap:1.25rem;">
+
+      <article class="card" id="gastro-diario-sort">
+        <div class="card-header">
+          <div class="card-title"><h3>Sort · opciones económicas</h3><div class="card-subtitle">Pallars Sobirà · base 1 · 4–6 jun</div></div>
+          <span class="card-badge badge-pueblo">€10–20</span>
+        </div>
+        <div class="card-section">
+          <p><strong>Bar El Coyote</strong> (Av. Comtes del Pallars 23) — el bar de pueblo de Sort por antonomasia. Bocadillos, platos combinados, tostadas, tapas, cervezas. Precio muy ajustado. Frecuentado por lugareños, kayakistas y ciclistas. Sin pretensiones y sin decepcionar. Para desayunar antes de la ruta o para cenar informal.</p>
+          <p><strong>Escalarre Rock Café</strong> (Av. Comtes del Pallars 39) — pizzas, hamburguesas, salchichas, menú. Ambiente de bar de deportes de montaña. Buena opción para la noche que llegáis cansados de la ruta y queréis algo rápido sin complicaciones. <em>Para llevar disponible.</em></p>
+          <p><strong>Menú del día en cualquier hostal</strong> — Sort tiene varios hostales con comedor que sirven menú del día por €12-15 (primer plato + segundo + postre + bebida). El Hostal Can Josep, junto al río, es el más valorado por precio. El menú cambia cada día con producto local.</p>
+          <p><strong>Cooperativa de quesos Sort</strong> (Tros de Sort) — para picar en el alojamiento o preparar un bocadillo de montaña antes de salir: queso serrat, tupí, embutidos xolís del Pallars. Los mejores quesos artesanales de la comarca, directamente de los ganaderos.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Bar El Coyote</span><span class="value">€8-12/persona · todos los días</span></div>
+          <div class="facts-row"><span class="label">Menú del día</span><span class="value">€12-15/persona · mediodía</span></div>
+          <div class="facts-row"><span class="label">Pizzería/burgers</span><span class="value">€15-20/persona</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Bar+El+Coyote+Sort+Pallars" target="_blank" rel="noopener">Bar El Coyote en Maps</a>
+        <div class="notes-area"><label for="note-gastro-diario-sort">Notas</label><textarea class="notes-textarea" id="note-gastro-diario-sort" data-note-key="gastro-diario-sort" placeholder="Lo que encontréis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-diario-aran">
+        <div class="card-header">
+          <div class="card-title"><h3>Vielha · opciones económicas</h3><div class="card-subtitle">Val d'Arán · base 2 · 6–10 jun</div></div>
+          <span class="card-badge badge-pueblo">€10–22</span>
+        </div>
+        <div class="card-section">
+          <p><strong>Era Plaça</strong> (Plaça dera Glèisa 1, Vielha) — el desayuno más económico y local del Arán: buffet de desayuno completo + café por <strong>€5</strong>. Sencillo, sin florituras, justo en la plaza de la iglesia del casco antiguo. Para salir a rodar con el estómago lleno sin gastar.</p>
+          <p><strong>Sidrería Era Bruisha</strong> (Carrer Marrèc 18, Vielha) — especialistas en chuletón en una borda típica aranesa. Comida abundante y de muy buena calidad a precio de sidrería. No es baratísimo pero la relación cantidad/precio es imbatible. Para la noche que queréis carne contundente sin el formalismo de Unhòla.</p>
+          <p><strong>Menú del día en el Çò d'Oskar</strong> (Vielha) — apareció en <em>Joc de Cartes</em> de TV3 por su cocina tradicional local. Menú del día con platos de la zona a precio razonable. Buena opción para la comida del mediodía tras la ruta.</p>
+          <p><strong>Bocadillos y picnic</strong> — la carnicería de la Passeg dera Libertat en Vielha tiene embutidos y fiambres para preparar el mejor bocadillo de ruta. Para los días de Artiga de Lin o Lac d'Oô: montar el bocadillo la noche antes y comerlo en el campo.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">Era Plaça · desayuno</span><span class="value">€5 · buffet completo</span></div>
+          <div class="facts-row"><span class="label">Çò d'Oskar · menú</span><span class="value">€13-18/persona</span></div>
+          <div class="facts-row"><span class="label">Era Bruisha · carne</span><span class="value">€22-30/persona · chuletón</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Era+Placa+Vielha+Val+d+Aran" target="_blank" rel="noopener">Era Plaça en Maps</a>
+        <div class="notes-area"><label for="note-gastro-diario-aran">Notas</label><textarea class="notes-textarea" id="note-gastro-diario-aran" data-note-key="gastro-diario-aran" placeholder="Lo que encontréis…"></textarea></div>
+      </article>
+
+      <article class="card" id="gastro-diario-ainsa">
+        <div class="card-header">
+          <div class="card-title"><h3>Aínsa · opciones económicas</h3><div class="card-subtitle">Sobrarbe · base 3 · 10–13 jun</div></div>
+          <span class="card-badge badge-pueblo">€10–22</span>
+        </div>
+        <div class="card-section">
+          <p><strong>Pizzería La Tea</strong> (Pl. Mayor 21) — pizzería con horno de leña en plena Plaza Mayor. Gran variedad de pizzas, <strong>opción sin gluten</strong> disponible, también hacen pollo asado al espetón que sale rotando en la entrada. Precio muy razonable para la localización. Para la noche que no toca ni Callizo ni La Parrilla.</p>
+          <p><strong>Restaurante Dos Ríos</strong> (Av. Central 4) — menú del día por ~€19,50 (primero + segundo + postre + bebida) con buenas raciones y cocina honesta. Reseñado consistentemente como «buena opción para comer en Aínsa sin gastar». Abierto los domingos. También hacen bocadillos y raciones para picar.</p>
+          <p><strong>La Carrasca Tapas</strong> (casco antiguo) — pintxos, tablas, bocadillos, tapas creativas. Conocida por las tapas generosas: cordero a la parrilla, chipirones, embutidos locales. Muy recomendada por el nivel de elaboración para el precio que tiene.</p>
+          <p><strong>Casa Alfonso</strong> (casco antiguo, no acepta reservas) — lugar emblemático del casco medieval, abierto todos los días. Croquetas y canelones caseros destacados en reseñas recientes. Para la comida o cena del día 10 al llegar, cuando no tenéis reserva en ningún sitio.</p>
+        </div>
+        <div class="facts">
+          <div class="facts-row"><span class="label">La Tea · pizza</span><span class="value">€12-18/persona · sin gluten disponible</span></div>
+          <div class="facts-row"><span class="label">Dos Ríos · menú</span><span class="value">€19,50/persona · abierto domingos</span></div>
+          <div class="facts-row"><span class="label">La Carrasca · tapas</span><span class="value">€15-20/persona</span></div>
+          <div class="facts-row"><span class="label">Casa Alfonso</span><span class="value">Sin reserva · siempre abierto</span></div>
+        </div>
+        <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Pizzeria+La+Tea+Ainsa+Plaza+Mayor" target="_blank" rel="noopener">La Tea en Maps</a>
+        <div class="notes-area"><label for="note-gastro-diario-ainsa">Notas</label><textarea class="notes-textarea" id="note-gastro-diario-ainsa" data-note-key="gastro-diario-ainsa" placeholder="Lo que encontréis…"></textarea></div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- PRÁCTICA -->
+<section id="practica">
+  <div class="container">
+    <div class="section-eyebrow">Información práctica</div>
+    <h2 class="section-title">Notas de viaje</h2>
+
+    <h4 style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);letter-spacing:.05em;margin-bottom:.75rem;font-size:.85rem;text-transform:uppercase;">Equipo fotográfico</h4>
+    <ul class="detail-list">
+      <li><strong>Pablo · Fujifilm X100VI</strong> — Sensor 40MP APS-C, 23mm f/2 (equiv. 35mm). Discreta, sin espejo, silenciosa. Estabilización IBIS de 6 pasos en la VI — ventaja sobre versiones anteriores para bajas velocidades sin trípode. Ideal para pueblo, arquitectura, street. En el Arán es la cámara perfecta.</li>
+      <li><strong>Pablo · EOS RP + RF 16mm f/2.8</strong> — Full frame + ultra wide. Para interiores de iglesias románicas (Arties, Bossòst) y paisajes con primer plano muy cercano. El f/2.8 limita en baja luz pero es muy compacto.</li>
+      <li><strong>Pablo · EOS RP + RF 35mm f/1.8</strong> — El focal de reportaje. Estabilización óptica. Para cascos de pueblo en luz difusa y situaciones sin trípode al amanecer/atardecer.</li>
+      <li><strong>Pablo · EOS RP + RF 24-105mm</strong> — El zoom todoterreno. Para cuando la situación cambia rápido y no hay tiempo de cambiar objetivo: rutas en bici, pueblos nuevos, vistas panorámicas.</li>
+      <li><strong>Carlos · R6 Mark II + EF 70-200 f/2.8L</strong> — La combinación estrella del viaje para fauna (marmotas, sarrios, buitres), ciclistas en el Tourmalet y campanarios románicos desde lejos. IBIS + IS del zoom: posibilidad real de disparar a mano a 200mm con velocidades de 1/60s. Autofoco animal-eye del R6 Mark II para fauna.</li>
+      <li><strong>Carlos · Sigma 24mm f/1.4</strong> — Sin estabilización, pero f/1.4 compensa. Para cielo nocturno (en Beret o zonas sin contaminación lumínica) y situaciones de muy baja luz en bosque.</li>
+      <li><strong>Carlos · Sigma 50mm f/1.4</strong> — Sin estabilización. El focal más versátil para retratos de entorno: persona en el paisaje con fondo desenfocado.</li>
+      <li><strong>Carlos · Sigma 100mm</strong> — Para fauna a distancia media y detalles de arquitectura románica (capiteles, esculturas de iglesias).</li>
+    </ul>
+
+    <h4 style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);letter-spacing:.05em;margin:1.5rem 0 .75rem;font-size:.85rem;text-transform:uppercase;">Luz y horarios en junio</h4>
+    <ul class="detail-list">
+      <li><strong>Amanecer</strong> ~6:10-6:20h (CEST). La hora de oro dura hasta ~7:45h. En montaña la luz lateral de mañana es la más interesante para textura de roca y pueblo de piedra.</li>
+      <li><strong>Mediodía</strong> 12:00-15:00h — luz dura y cenital. En alta montaña (Colomèrs, cañones) funciona por el azul del cielo y el contraste. Para pueblo y arquitectura: evitar.</li>
+      <li><strong>Hora de oro tarde</strong> ~19:30-21:00h. Atardecer ~21:30h. La tarde en junio es larguísima — mucho tiempo de luz útil.</li>
+    </ul>
+
+    <h4 style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);letter-spacing:.05em;margin:1.5rem 0 .75rem;font-size:.85rem;text-transform:uppercase;">Accesos y restricciones</h4>
+    <ul class="detail-list">
+      <li><strong>Parque Nacional Aigüestortes</strong> — Acceso en coche privado restringido en temporada. Consultar web del Parque antes del viaje. eMTBs: restricciones en zonas de Parque Nacional — confirmar antes.</li>
+      <li><strong>Artiga de Lin</strong> — Barrera cierra 10:00-17:00h en verano. Llegar antes de las 10h.</li>
+      <li><strong>Gavarnie</strong> — Parking de pago, se llena. Salida temprana recomendada.</li>
+      <li><strong>Túnel de Bielsa</strong> — Acceso a Francia en coche. Abierto todo el año.</li>
+      <li><strong>Col du Tourmalet</strong> — Cierra con nieve (noviembre-mayo). En junio está abierto.</li>
+    </ul>
+
+    <h4 style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);letter-spacing:.05em;margin:1.5rem 0 .75rem;font-size:.85rem;text-transform:uppercase;">Fauna — mejores spots</h4>
+    <ul class="detail-list">
+      <li><strong>Sarrios / Isards (rebecos)</strong> — Laderas altas de Aigüestortes (sobre el lago de Sant Maurici al amanecer), zonas sobre Baqueira, circo de Colomèrs. Con el 70-200 de Carlos, distancia óptima 80-150m.</li>
+      <li><strong>Marmotas</strong> — Circ de Colomèrs, prados de Beret. Muy confiadas en junio con las crías recientes. Se pueden fotografiar a 10-15m con buena luz.</li>
+      <li><strong>Buitres leonados</strong> — Sobrevolando el Cañón de Añisclo, Collegats. Aprovechan las corrientes ascendentes a partir de las 10-11h.</li>
+      <li><strong>Pito negro (pájaro carpintero negro)</strong> — Bosques de abeto del Arán (Artiga de Lin, valles de Baqueira). Con el 70-200, si lo escucháis, quietud absoluta y esperar.</li>
+    </ul>
+
+  </div>
+</section>
+
+</main>
+
+<div class="flourish">·  ·  ·  ✦  ·  ·  ·</div>
+
+<button class="back-btn" id="back-btn" onclick="goBack()" aria-label="Volver">
+  <span class="back-btn-arrow">←</span> Volver
+</button>
+
+<script>
+// === THEME ===
+const themeBtn = document.querySelectorAll('.theme-btn');
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('pirineos-theme', t); } catch(e) {}
+}
+function toggleTheme() {
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+try {
+  const saved = localStorage.getItem('pirineos-theme');
+  if (saved) setTheme(saved);
+  else if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
+} catch(e) {}
+
+// === NAVIGATION ===
+const navStack = [];
+const backBtn = document.getElementById('back-btn');
+function updateBackBtn() {
+  backBtn.classList.toggle('show', navStack.length > 0);
+}
+function navigateToCard(id, event) {
+  if (event) event.preventDefault();
+  navStack.push(window.scrollY);
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.classList.add('highlight');
+    setTimeout(() => el.classList.remove('highlight'), 2500);
+  }
+  updateBackBtn();
+}
+function goBack() {
+  const prev = navStack.pop();
+  if (typeof prev === 'number') window.scrollTo({ top: prev, behavior: 'smooth' });
+  updateBackBtn();
+}
+function highlightCard(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('highlight');
+  setTimeout(() => el.classList.remove('highlight'), 2500);
+}
+function bindCardLinks() {
+  const cardIds = new Set(Array.from(document.querySelectorAll('.card')).map(c => c.id));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    const target = a.getAttribute('href').substring(1);
+    if (cardIds.has(target) && !a.dataset.bound) {
+      a.dataset.bound = '1';
+      a.addEventListener('click', (e) => navigateToCard(target, e));
+    }
+  });
+}
+
+// === SEARCH ===
+let searchIdx = [];
+function buildSearchIndex() {
+  searchIdx = Array.from(document.querySelectorAll('.card')).map(card => ({
+    id: card.id,
+    title: card.querySelector('h3')?.textContent || '',
+    sub: card.querySelector('.card-subtitle')?.textContent || '',
+    badge: card.querySelector('.card-badge')?.textContent || '',
+    section: card.closest('section')?.id || ''
+  }));
+}
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+searchInput?.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (q.length < 2) { searchResults.classList.remove('show'); return; }
+  const matches = searchIdx.filter(c =>
+    c.title.toLowerCase().includes(q) || c.sub.toLowerCase().includes(q) || c.badge.toLowerCase().includes(q)
+  );
+  if (!matches.length) {
+    searchResults.innerHTML = '<div style="padding:.65rem 1rem;color:var(--ink-faint);font-style:italic">Sin resultados</div>';
+  } else {
+    searchResults.innerHTML = matches.map(c =>
+      `<a href="#${c.id}" class="search-result" data-card="${c.id}">${c.title}<div class="search-result-meta">${c.sub || c.section}</div></a>`
+    ).join('');
+    searchResults.querySelectorAll('.search-result').forEach(a => {
+      a.addEventListener('click', (e) => {
+        searchResults.classList.remove('show');
+        searchInput.value = '';
+        navigateToCard(a.dataset.card, e);
+      });
+    });
+  }
+  searchResults.classList.add('show');
+});
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) searchResults.classList.remove('show');
+});
+
+// === ACTIVE NAV PILL ===
+function updateActivePill() {
+  const sections = document.querySelectorAll('section[id]');
+  const pills = document.querySelectorAll('.nav-pill');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = '#' + e.target.id;
+        pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === id));
+      }
+    });
+  }, { threshold: .3, rootMargin: '-10% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+}
+
+// === NOTES ===
+function setupNotes() {
+  document.querySelectorAll('.notes-textarea').forEach(ta => {
+    const k = 'pirineos-note-' + ta.dataset.noteKey;
+    try { ta.value = localStorage.getItem(k) || ''; } catch(e) {}
+    ta.addEventListener('input', () => {
+      try { localStorage.setItem(k, ta.value); } catch(e) {}
+    });
+  });
+}
+
+// === INIT ===
+function init() {
+  buildSearchIndex();
+  setupNotes();
+  updateActivePill();
+  bindCardLinks();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
