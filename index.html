@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Pirineos MTB · 3—13 junio 2026</title>
+<!-- Favicons / iconos -->
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#2d5a27">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pirineos MTB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -51,10 +61,24 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* === Calendar inline links === */
+.cal-link {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color .2s, background .2s;
+}
+.cal-link:hover {
+  text-decoration: none;
+  border-bottom-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
 /* === Layout === */
 .container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
 section { padding: 3rem 0; }
 section + section { border-top: 1px solid var(--line-soft); }
+/* Compensa la cabecera fija al saltar por anclas/enlaces internos */
+section[id], .card { scroll-margin-top: 116px; }
 
 /* === Topbar === */
 .topbar {
@@ -118,9 +142,10 @@ section + section { border-top: 1px solid var(--line-soft); }
 
 /* === Nav pills === */
 .nav-pills {
-  display: flex; gap: .35rem; padding: .5rem 1.25rem;
+  display: flex; gap: .35rem; padding: .5rem 1.5rem;
+  max-width: 720px; margin: 0 auto;
   overflow-x: auto; scrollbar-width: none;
-  border-bottom: 1px solid var(--line-soft); background: var(--bg);
+  background: var(--bg);
 }
 .nav-pills::-webkit-scrollbar { display: none; }
 .nav-pill {
@@ -500,7 +525,7 @@ section + section { border-top: 1px solid var(--line-soft); }
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mar<br>3 jun</div>
         <div>
           <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Traslado · Alicante → Puigcerdà</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">~5h de conducción. Llegada a media tarde. Paseo por Puigcerdà y el lago — sin prisas, primera toma de contacto con la montaña. Cena tranquila.</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">~5h de conducción. Llegada a media tarde. Paseo por <a href="#puigcerda" class="cal-link">Puigcerdà</a> y el lago — sin prisas, primera toma de contacto con la montaña. Cena tranquila.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚗 traslado · sin bici</div>
         </div>
       </div>
@@ -509,8 +534,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mié<br>4 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Llívia · Ruta Sainte-Léocadie ⭐⭐⭐ (opcional) · Traslado Sort</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: visita a Llívia (enclave español en Francia, farmacia más antigua de Europa). Si las energías acompañan, la ruta <strong>Sainte-Léocadie–Eyne–Llívia</strong> (53 km, 1.397m) sale desde aquí y es la más adecuada de todas para la Cerdanya. Si no, media mañana de fotos en el enclave y traslado a Sort después de comer (~2h).</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#llivia" class="cal-link">Llívia</a> · <a href="#ruta-llivia-eyne" class="cal-link">Ruta Sainte-Léocadie</a> ⭐⭐⭐ (opcional) · Traslado Sort</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: visita a <a href="#llivia" class="cal-link">Llívia</a> (enclave español en Francia, farmacia más antigua de Europa). Si las energías acompañan, la ruta <a href="#ruta-llivia-eyne" class="cal-link"><strong>Sainte-Léocadie–Eyne–Llívia</strong></a> (53 km, 1.397m) sale desde aquí y es la más adecuada de todas para la Cerdanya. Si no, media mañana de fotos en el enclave y traslado a Sort después de comer (~2h).</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 53 km · 1.397m · ⭐⭐⭐ · o 🚗 traslado · Levo ~80% batería</div>
         </div>
       </div>
@@ -519,8 +544,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Jue<br>5 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Lago de Montcortès · Mega Tampanada ⭐⭐⭐</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana temprana: el lago de Montcortès en calma (15 min de Sort) — el lago espejo circular, único en los Pirineos catalanes. Vale la pena llegar antes de que haya viento. Ruta <strong>Mega Tampanada</strong> (39 km, 990m) de vuelta en la tarde o al mediodía. El desnivel moderado es la más indicada para el Pallars.</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#montcortes" class="cal-link">Lago de Montcortès</a> · <a href="#ruta-mega-tampanada" class="cal-link">Mega Tampanada</a> ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana temprana: el <a href="#montcortes" class="cal-link">lago de Montcortès</a> en calma (15 min de Sort) — el lago espejo circular, único en los Pirineos catalanes. Vale la pena llegar antes de que haya viento. Ruta <a href="#ruta-mega-tampanada" class="cal-link"><strong>Mega Tampanada</strong></a> (39 km, 990m) de vuelta en la tarde o al mediodía. El desnivel moderado es la más indicada para el Pallars.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 39 km · 990m · ⭐⭐⭐ · Levo ~60% batería · Lago: no requiere madrugar, basta con salir a las 8h</div>
         </div>
       </div>
@@ -529,8 +554,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Vie<br>6 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Estany de Sant Maurici · Traslado Vielha</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. El lago de Sant Maurici con Els Encantats es la foto más icónica del Pirineo catalán — la luz temprana es claramente mejor, pero tampoco hace falta llegar antes del amanecer: a las 8–9h todavía está tranquilo y la luz sigue siendo buena. El acceso en coche cierra a las 10h para particulares — llegar antes. Traslado a Vielha después (1h30 por el Port de la Bonaigua).</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#sant-maurici" class="cal-link">Estany de Sant Maurici</a> · Traslado Vielha</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. El <a href="#sant-maurici" class="cal-link">lago de Sant Maurici</a> con Els Encantats es la foto más icónica del Pirineo catalán — la luz temprana es claramente mejor, pero tampoco hace falta llegar antes del amanecer: a las 8–9h todavía está tranquilo y la luz sigue siendo buena. El acceso en coche cierra a las 10h para particulares — llegar antes. Traslado a Vielha después (1h30 por el Port de la Bonaigua).</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 foto · sin bici · 🚗 traslado · ⚠ acceso cierra 10h</div>
         </div>
       </div>
@@ -539,8 +564,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Sáb<br>7 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Arties · Bagergue · Artiga de Lin</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici — primer día completo en el Arán. Mañana: Arties (callejuelas de piedra, iglesia románica). Mediodía: Bagergue, el pueblo más alto del Arán, flores en los balcones. Tarde: Artiga de Lin andando (3 km llanos, 1h) hasta la cascada Uelhs deth Joèu. Cena en Unhòla en Bagergue.</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#arties" class="cal-link">Arties</a> · <a href="#bagergue" class="cal-link">Bagergue</a> · <a href="#artiga-lin" class="cal-link">Artiga de Lin</a></div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici — primer día completo en el Arán. Mañana: <a href="#arties" class="cal-link">Arties</a> (callejuelas de piedra, iglesia románica). Mediodía: <a href="#bagergue" class="cal-link">Bagergue</a>, el pueblo más alto del Arán, flores en los balcones. Tarde: <a href="#artiga-lin" class="cal-link">Artiga de Lin</a> andando (3 km llanos, 1h) hasta la cascada Uelhs deth Joèu. Cena en <a href="#gastro-unhola" class="cal-link">Unhòla</a> en Bagergue.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 foto + excursión a pie · sin bici · 🍽 Unhòla (cena)</div>
         </div>
       </div>
@@ -549,8 +574,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Dom<br>8 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Ruta Saut deth Pish · Coll de Varradòs ⭐⭐⭐</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;"><strong>Ruta 10 oficial del Arán.</strong> 47 km, 1.260m. Circular desde Vielha/Betren — la ruta que conecta lo que visteis ayer a pie con la bici: pasáis por la cascada Saut deth Pish y bajáis por Bagergue. Es la ruta con mejor relación paisaje/dificultad de las cuatro noches en el Arán. La Levo llega bien a estos 47 km con 1.260m en modo sport.</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#ruta-saut-pish" class="cal-link">Ruta Saut deth Pish · Coll de Varradòs</a> ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;"><a href="#ruta-saut-pish" class="cal-link"><strong>Ruta 10 oficial del Arán.</strong></a> 47 km, 1.260m. Circular desde Vielha/Betren — la ruta que conecta lo que visteis ayer a pie con la bici: pasáis por la cascada Saut deth Pish y bajáis por <a href="#bagergue" class="cal-link">Bagergue</a>. Es la ruta con mejor relación paisaje/dificultad de las cuatro noches en el Arán. La Levo llega bien a estos 47 km con 1.260m en modo sport.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 47 km · 1.260m · ⭐⭐⭐ · Levo ~75% batería</div>
         </div>
       </div>
@@ -559,8 +584,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Lun<br>9 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · Bagnères-de-Luchon · Lac d'Oô</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Cruzáis el Col du Portillon (20 min desde Vielha). Luchon: paseo por la ciudad termal belle époque. Lac d'Oô: 3,5 km andando hasta el lago glaciar con la cascada de 275m — una de las tres mejores fotos del viaje. Vuelta tranquila por el Portillon. Cena en Casa Turnay (olla aranesa).</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · <a href="#bagneres-luchon" class="cal-link">Bagnères-de-Luchon · Lac d'Oô</a></div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Cruzáis el Col du Portillon (20 min desde Vielha). <a href="#bagneres-luchon" class="cal-link">Luchon</a>: paseo por la ciudad termal belle époque. <a href="#bagneres-luchon" class="cal-link">Lac d'Oô</a>: 3,5 km andando hasta el lago glaciar con la cascada de 275m — una de las tres mejores fotos del viaje. Vuelta tranquila por el Portillon. Cena en <a href="#gastro-casa-turnay" class="cal-link">Casa Turnay</a> (olla aranesa).</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 excursión Francia · sin bici · 🍽 Casa Turnay (cena)</div>
         </div>
       </div>
@@ -569,7 +594,7 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mar<br>10 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Ruta Cròdos ⭐⭐⭐⭐ (recortable) · Traslado Aínsa</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#ruta-crodos" class="cal-link">Ruta Cròdos</a> ⭐⭐⭐⭐ (recortable) · Traslado <a href="#ainsa" class="cal-link">Aínsa</a></div>
           <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">38 km, 1.452m, sube a ~2.390m. Es la ruta más alta del Arán y la más exigente para la batería — la Levo 500 Wh puede ajustar en los últimos km en eco. <strong>Versión recortada:</strong> bajar por el mismo camino al llegar al primer coll (~22 km, ~900m, ⭐⭐⭐) y tener margen para el traslado de tarde a Aínsa (~2h por la N-230). La panorámica del Arán desde las zonas altas ya compensa.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">🚵 22–38 km · 900–1.452m · ⭐⭐⭐–⭐⭐⭐⭐ · 🚗 traslado tarde · ⚠ Levo: valorar versión corta</div>
         </div>
@@ -579,8 +604,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Mié<br>11 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Aínsa medieval · Ruta Valle de Tena · Yosa ⭐⭐⭐</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: explorar el casco medieval de Aínsa — la Plaza Mayor y el castillo a una hora razonable, sin madrugar, simplemente antes de que llegue el turismo de mediodía. Tarde: ruta <strong>Enduro Valle de Tena · Yosa · Escuer</strong> desde Biescas (50 min en coche). 32 km, 1.297m, técnica pero corta. Advertencia: «enduro» implica sendero con raíces y roca; si se prefiere algo más rodado, <strong>Farrigüelo · San Felices</strong> (50 km, 1.207m, ⭐⭐⭐) sale directamente desde Aínsa.</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#ainsa" class="cal-link">Aínsa medieval</a> · <a href="#ruta-tena-yosa" class="cal-link">Ruta Valle de Tena · Yosa</a> ⭐⭐⭐</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Mañana: explorar el casco medieval de <a href="#ainsa" class="cal-link">Aínsa</a> — la Plaza Mayor y el castillo a una hora razonable, sin madrugar, simplemente antes de que llegue el turismo de mediodía. Tarde: ruta <a href="#ruta-tena-yosa" class="cal-link"><strong>Enduro Valle de Tena · Yosa · Escuer</strong></a> desde Biescas (50 min en coche). 32 km, 1.297m, técnica pero corta. Advertencia: «enduro» implica sendero con raíces y roca; si se prefiere algo más rodado, <a href="#ruta-farrigüelo" class="cal-link"><strong>Farrigüelo · San Felices</strong></a> (50 km, 1.207m, ⭐⭐⭐) sale directamente desde Aínsa.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 mañana Aínsa · 🚵 32 km · 1.297m · ⭐⭐⭐ · Levo ~55% batería</div>
         </div>
       </div>
@@ -589,8 +614,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;border-bottom:1px solid var(--line-soft);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Jue<br>12 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · Gavarnie · (Tourmalet opcional)</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Salida a las 8h por el Túnel de Bielsa. Gavarnie: la ruta de 7 km llanos al interior del circo (2h ida y vuelta) para ver la Grande Cascade de 422m y el muro de 1.500m de pared. Una de las mejores fotos del viaje. Si queda energía y tiempo, vuelta por el Col d'Aspin y el Tourmalet — parada foto en la estatua del Géant. Si no, Gavarnie ya es suficiente para un día.</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Francia · <a href="#gavarnie" class="cal-link">Gavarnie</a> · (<a href="#tourmalet" class="cal-link">Tourmalet</a> opcional)</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">Sin bici. Salida a las 8h por el Túnel de Bielsa. <a href="#gavarnie" class="cal-link">Gavarnie</a>: la ruta de 7 km llanos al interior del circo (2h ida y vuelta) para ver la Grande Cascade de 422m y el muro de 1.500m de pared. Una de las mejores fotos del viaje. Si queda energía y tiempo, vuelta por el Col d'Aspin y el <a href="#tourmalet" class="cal-link">Tourmalet</a> — parada foto en la estatua del Géant. Si no, Gavarnie ya es suficiente para un día.</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 excursión Francia · sin bici · ⭐ foto imprescindible</div>
         </div>
       </div>
@@ -599,8 +624,8 @@ section + section { border-top: 1px solid var(--line-soft); }
       <div style="display:grid;grid-template-columns:4rem 1fr;gap:.75rem 1rem;align-items:baseline;padding:.9rem 0;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.05em;line-height:1.3;">Vie<br>13 jun</div>
         <div>
-          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);">Plaza Mayor de Aínsa · Retorno Alicante</div>
-          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">La Plaza Mayor de Aínsa sin turistas vale la pena verla a primera hora — no requiere madrugar, basta con bajar antes de las 9h mientras el resto del pueblo desayuna. Fotos con la luz de mañana en la piedra medieval. Desayuno. Inicio del retorno (~5h a Alicante).</div>
+          <div style="font-family:'Cormorant Garamond','Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);"><a href="#ainsa" class="cal-link">Plaza Mayor de Aínsa</a> · Retorno Alicante</div>
+          <div style="font-size:.88rem;color:var(--ink-soft);margin-top:.25rem;">La <a href="#ainsa" class="cal-link">Plaza Mayor de Aínsa</a> sin turistas vale la pena verla a primera hora — no requiere madrugar, basta con bajar antes de las 9h mientras el resto del pueblo desayuna. Fotos con la luz de mañana en la piedra medieval. Desayuno. Inicio del retorno (~5h a Alicante).</div>
           <div style="margin-top:.35rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-faint);">📷 mañana Aínsa · 🚗 retorno</div>
         </div>
       </div>
@@ -612,10 +637,10 @@ section + section { border-top: 1px solid var(--line-soft); }
       <strong style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--gold);display:block;margin-bottom:.4rem;">Rutas en reserva</strong>
       <span style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);">
         Si el viaje avanza bien y se quiere más rodadura:<br>
-        · <strong style="font-style:normal">Stravada</strong> (Sort, 56 km, 1.700m ⭐⭐⭐⭐) — en lugar de la Tampanada si se quiere un día más exigente<br>
-        · <strong style="font-style:normal">Contrabandistas recortada</strong> (Sort → Alins → Tor ida y vuelta, ~38 km, 850m ⭐⭐) — el valle de la Vallferrera sin cruzar a Andorra<br>
-        · <strong style="font-style:normal">Aínsa · Zona Cero · Mediano circular</strong> (66 km, 1.669m ⭐⭐⭐⭐) — ⚠ supera la autonomía de la Levo en modo sport; solo viable en eco completo<br>
-        · <strong style="font-style:normal">Tourmalet + Pic du Midi en bici</strong> (50 km, 2.249m ⭐⭐⭐⭐⭐) — requiere día completo en Francia y batería extra o punto de recarga en La Mongie
+        · <a href="#ruta-stravada" class="cal-link"><strong style="font-style:normal">Stravada</strong></a> (Sort, 56 km, 1.700m ⭐⭐⭐⭐) — en lugar de la Tampanada si se quiere un día más exigente<br>
+        · <a href="#ruta-contrabandistas" class="cal-link"><strong style="font-style:normal">Contrabandistas recortada</strong></a> (Sort → Alins → Tor ida y vuelta, ~38 km, 850m ⭐⭐) — el valle de la Vallferrera sin cruzar a Andorra<br>
+        · <a href="#ruta-ainsa-mediano" class="cal-link"><strong style="font-style:normal">Aínsa · Zona Cero · Mediano circular</strong></a> (66 km, 1.669m ⭐⭐⭐⭐) — ⚠ supera la autonomía de la Levo en modo sport; solo viable en eco completo<br>
+        · <a href="#ruta-tourmalet-pic" class="cal-link"><strong style="font-style:normal">Tourmalet + Pic du Midi en bici</strong></a> (50 km, 2.249m ⭐⭐⭐⭐⭐) — requiere día completo en Francia y batería extra o punto de recarga en La Mongie
       </span>
     </div>
 

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a6e2e"/>
+      <stop offset="0.55" stop-color="#2d5a27"/>
+      <stop offset="1" stop-color="#1c3318"/>
+    </linearGradient>
+    <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4f8f0"/>
+      <stop offset="1" stop-color="#cfe0c2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo (iOS redondea las esquinas automáticamente) -->
+  <rect width="512" height="512" fill="url(#sky)"/>
+
+  <!-- Sol / luna -->
+  <circle cx="370" cy="138" r="46" fill="#e9c46a" opacity="0.95"/>
+
+  <!-- Cordillera de fondo -->
+  <path d="M0 372 L96 250 L168 318 L262 200 L350 300 L430 232 L512 320 L512 512 L0 512 Z"
+        fill="#234a1e" opacity="0.85"/>
+
+  <!-- Pico principal con nieve -->
+  <path d="M0 512 L150 268 L256 400 L372 224 L512 512 Z" fill="#172d12"/>
+  <path d="M372 224 L340 272 L356 286 L378 262 L398 290 L416 268 Z" fill="url(#snow)"/>
+  <path d="M150 268 L122 314 L140 326 L158 300 L176 322 L186 306 Z" fill="url(#snow)"/>
+</svg>
